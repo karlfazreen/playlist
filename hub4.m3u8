@@ -1,5 +1,5 @@
 #EXTM3U
 #EXT-X-VERSION:3
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2500000
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=3000000
 http://185.243.7.3/play/live.php?mac=00:1A:79:6F:5A:5D&stream=1032526&extension=m3u8&play_token=INQOYZwkOH
 ##http://185.243.7.57/play/live.php?mac=00:1A:79:6F:5A:5D&stream=1032526&extension=m3u8&play_token=L3uElhQzty
