@@ -1,7 +1,8 @@
 #EXTM3U
 #EXT-X-VERSION:3
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=4000000
-http://xtv.ooo:8080/live/asdfgh/asdfgh/229541.m3u8
+http://95.214.235.96:8880/play/live.php?mac=00:1A:79:64:08:49&stream=71020&extension=m3u8&play_token=go_ott
+##http://xtv.ooo:8080/live/asdfgh/asdfgh/229541.m3u8
 ##http://dmtn.tv:8080/live/ultraser723/qBS9VfE4vC/420464.m3u8
 ##http://95.214.235.96:8880/live/3ca05163n13/svyga7csd/1705.m3u8
 ##http://185.243.7.58/play/live.php?mac=00:1A:79:6F:5A:5D&stream=571236&extension=m3u8&play_token=go_ott
