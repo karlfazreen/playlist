@@ -1,9 +1,9 @@
 #EXTM3U
 #EXT-X-VERSION:3
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=4000000
+http://104.193.225.145:8080/live/RI@/RI@.m3u8?hls_ctx=e9537xv6
 https://stream.astradamy.com/RI@_src.m3u8
 https://smt.sky4k.eu.org/live2088/index.m3u8?id=Ria_test
-
 http://188.165.218.151:8080/live/puasa/puasa2/7868.m3u8
 http://iptvtree.net:8080/live/1c8aff65/bce3124507/158347.m3u8
 http://xtv.ooo:8080/live/asdfgh/asdfgh/229541.m3u8
