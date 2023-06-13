@@ -1,12 +1,13 @@
-#EXTVLCOPT:http-user-agent=com.iiptv.linkk.nethaji
 #EXTM3U
 #EXT-X-VERSION:3
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2000000
-http://188.165.218.151:8080/live/haji/haji/7868.m3u8
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=5000000
 https://smt.sky4k.eu.org/live2088/index.m3u8?id=Ria_test
+
+http://188.165.218.151:8080/live/haji/haji/7868.m3u8
 http://104.193.225.145:8080/live/RI@/RI@.m3u8?hls_ctx=e9537xv6
 http://45.143.222.41:8080/live/1c8aff65/bce3124507/158347.m3u8
 https://stream.astradamy.com/RI@_src.m3u8
+
 
 http://xtv.ooo:8080/live/asdfgh/asdfgh/229541.m3u8
 http://dmtn.tv:8080/live/ultraser723/qBS9VfE4vC/420464.m3u8
