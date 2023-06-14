@@ -1,6 +1,6 @@
 #EXTM3U
 #EXT-X-VERSION:3
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=1500000
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2000000
 https://smt.sky4k.eu.org/live2088/index.m3u8?id=Warna
 http://185.243.7.4/play/live.php?mac=00:1A:79:73:45:10&stream=941609&extension=m3u8&play_token=go_ott
 http://185.243.7.58/play/live.php?mac=00:1A:79:6F:5A:5D&stream=941609&extension=m3u8&play_token=go_ott
