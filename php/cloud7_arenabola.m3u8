@@ -1,7 +1,9 @@
 #EXTM3U
 #EXT-X-VERSION:3
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=4000000
-http://dmtn.tv:8080/live/steveny5997/54332611/380001.m3u8
-https://smt.sky4k.eu.org/live2088/index.m3u8?id=Bolaarena1
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2000000
+http://8.219.138.150:8885/streams/mac3bSuBYM_T_8FPLznb1lF7PfNnbYlLevWfhP5BoFX7i8zHdTU-4y7CWQ9ckjMk8AE1h6HfMQaq5f_h-v0LwLU0amZLClaKAooCFoBCCOUSWMr-FzTzsJ7YAZemesUEA0KMJMtDilJ4yvmNzy684yecEsZjP3ZxxanpZtI-RRSpKs9KVQd_AUj6mCP1pfxwKC1npFRCi-Se4H-HLlxKX0S_VgnXuZTDNDaGGKA0WIjDZc_UwaQzNUhHBlTKx4UN.m3u8?u=1690126544
+
+#http://dmtn.tv:8080/live/steveny5997/54332611/380001.m3u8
+#https://smt.sky4k.eu.org/live2088/index.m3u8?id=Bolaarena1
 
 
