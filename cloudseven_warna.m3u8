@@ -1,6 +1,7 @@
 #EXTM3U
 #EXT-X-VERSION:3
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2500000
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=3000000
+http://95.214.235.96:8880/live/3ca06303n13/asdfe23e32/1706.m3u8
 http://muka03.wanicelife.com:8880/live/mmNgmvu9uL/Y4qXXjdk2n/1706.m3u8
 https://ktpremium.com:443/live/lynn89/lynn89/25867.m3u8
 https://ktpremium.com:443/live/123meta101/34tregfsfsdf4/25867.m3u8
