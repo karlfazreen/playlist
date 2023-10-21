@@ -1,15 +1,17 @@
 #KODIPROP:inputstreamaddon=inputstream.adaptive
 #EXTHTTP:{"dt-custom-data":"eyJ1c2VySWQiOiJyZWFjdC1qdy1wbGF5ZXIiLCJzZXNzaW9uSWQiOiIxMjM0NTY3ODkiLCJtZXJjaGFudCI6ImdpaXRkX3RyYW5zdmlzaW9uIn0="}
 #KODIPROP:inputstream.adaptive.manifest_type=dash
-#KODIPROP:inputstream.adaptive.license_type=https://cubmupart4.picix.workers.dev/
-#EXTINF:-1 group-title="INDONESIA" tvg-id="BioskopIndonesia.id" tvg-logo="https://i.imgur.com/8gdyddg.png",Bioskop Indonesia 1
+#KODIPROP:inputstream.adaptive.license_type=https://cubmupart4.apiv2x.workers.dev/
+#KODIPROP:inputstream.adaptive.license_key=https://cubmupart4.apiv2x.workers.dev/
+#EXTINF:-1 group-title="INDONESIA" tvg-id="BioskopIndonesia.id" tvg-logo="https://i.imgur.com/8gdyddg.png",Bioskop Indonesia 11
 https://cdnjkt2.transvision.co.id:1001/live/master/4/4028c6856fd0d66d0170341bf1000905/manifest.mpd
 
 #KODIPROP:inputstreamaddon=inputstream.adaptive
 #EXTHTTP:{"dt-custom-data":"eyJ1c2VySWQiOiJyZWFjdC1qdy1wbGF5ZXIiLCJzZXNzaW9uSWQiOiIxMjM0NTY3ODkiLCJtZXJjaGFudCI6ImdpaXRkX3RyYW5zdmlzaW9uIn0="}
 #KODIPROP:inputstream.adaptive.manifest_type=dash
 #KODIPROP:inputstream.adaptive.license_type=https://lic.drmtoday.com/license-proxy-widevine/cenc/?specConform=true
-#EXTINF:-1 group-title="INDONESIA" tvg-id="BioskopIndonesia.id" tvg-logo="https://i.imgur.com/8gdyddg.png",Bioskop Indonesia 2
+#KODIPROP:inputstream.adaptive.license_key=https://lic.drmtoday.com/license-proxy-widevine/cenc/?specConform=true
+#EXTINF:-1 group-title="INDONESIA" tvg-id="BioskopIndonesia.id" tvg-logo="https://i.imgur.com/8gdyddg.png",Bioskop Indonesia 22
 https://cdnjkt2.transvision.co.id:1001/live/master/4/4028c6856fd0d66d0170341bf1000905/manifest.mpd
 
 #KODIPROP:inputstreamaddon=inputstream.adaptive
