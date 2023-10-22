@@ -1,6 +1,6 @@
 
 #EXTINF:-1 group-title="INDONESIA" tvg-id="BioskopIndonesia.id" tvg-logo="https://i.imgur.com/8gdyddg.png",Bioskop Indonesia 111
-https://www.googleapis.com/drive/v1/files/1AykO0vThCb9S4tZnoBa5qyxvXFeA7vKl?alt=media&key=a5Y0ZbPMBavIp84P-dyhgAI
+https://www.googleapis.com/drive/v3/files/1AykO0vThCb9S4tZnoBa5qyxvXFeA7vKl?alt=media&key=a5Y0ZbPMBavIp84P-dyhgAI
 
 #KODIPROP:inputstreamaddon=inputstream.adaptive
 #KODIPROP:inputstream.adaptive.manifest_type=dash
