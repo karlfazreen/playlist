@@ -1,5 +1,6 @@
 #EXTM3U
 #EXT-X-VERSION:3
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=3000000
-http://ss123.pro/play/live.php?mac=00:1A:79:00:19:E7&stream=156021&extension=m3u8&play_token=rcjwtfVmBj
 http://4ksuper.live/play/live.php?mac=00:1a:79:bf:a2:3b&stream=156021&extension=m3u8&play_token=eBddUIUw0o
+
+http://ss123.pro/play/live.php?mac=00:1A:79:00:19:E7&stream=156021&extension=m3u8&play_token=rcjwtfVmBj
