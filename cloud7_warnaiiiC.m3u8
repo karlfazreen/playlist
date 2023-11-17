@@ -1,6 +1,7 @@
 #EXTM3U
 #EXT-X-VERSION:3
 #EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2000000
+http://syok.tv:25461/live/User12/User12/22.m3u8
 https://smt.sky4k.eu.org/live20899/index.m3u8?id=Warna-O
 http://w.nasvpn.xyz:8080/live/haji/haji/7807.m3u8
 
