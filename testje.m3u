@@ -11,6 +11,6 @@ https://cdnjkt2.transvision.co.id:1001/live/master/2/4028c6856c3db2cc016cd6e6475
 #KODIPROP:inputstreamaddon=inputstream.adaptive 
 #KODIPROP:inputstream.adaptive.manifest_type=dash 
 #KODIPROP:inputstream.adaptive.license_type=org.w3.clearkey 
-#KODIPROP:inputstream.adaptive.license_key=4c467a737445684c4974426f556c7579:4547737a78565152376f4e3861636541
+#KODIPROP:inputstream.adaptive.license_key={ "keys":[ { "kty":"oct","k":"RUdzenhWUVI3b044YWNlQQ", "kid":"TEZ6c3RFaExJdEJvVWx1eQ" } ], "type":"temporary" }
 #EXTINF:-1 tvg-id="cnn.id" tvg-name="dizi" tvg-logo="https://cdnjkt2.transvision.co.id:1001/image/web/channel/4028c6857f48ecd2017f5e94be3213e1/a744a889dcd6437eafdc4fe2d3c741ea.png" group-title="Movies",sctv ck
 https://cdnjkt2.transvision.co.id:1001/live/master/2/4028c6856c3db2cc016cd6e647532391/manifest.mpd
