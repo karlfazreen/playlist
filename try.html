@@ -1,0 +1,86 @@
+<!DOCTYPE html><html><head><title>SpeedTradeMarket | Web Player</title>
+<script src="/cdn-cgi/apps/head/aqhzBqkyhgXFT9tYquvCBE2xpuY.js"></script><style>div a img{visibility:hidden;}</style>
+<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+<meta name="referrer" content="no-referrer" />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.1.2/shaka-player.ui.min.js' crossorigin='anonymous'></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.1.2/controls.min.css' crossorigin='anonymous' />
+<script async src='/cdn-cgi/challenge-platform/h/g/scripts/invisible.js?cb=6ebfddfd6fa3499c'></script>
+</head><body><script>!function(a,b,c,d,e,f){a.ddjskey=e;a.ddoptions=f||null;var m=b.createElement(c),n=b.getElementsByTagName(c)[0];m.async=1,m.src=d,n.parentNode.insertBefore(m,n)}(window,document,"script","https://js.datadome.co/tags.js","99B1C08278137CE22ADB60CE8DE020", {"ajaxListenerPath": true});</script>
+<body bgcolor='black' style='margin:0' oncontextmenu='return false' onkeydown='return false' onmousedown='return false'><script>!function(a,b,c,d,e,f){a.ddjskey=e;a.ddoptions=f||null;var m=b.createElement(c),n=b.getElementsByTagName(c)[0];m.async=1,m.src=d,n.parentNode.insertBefore(m,n)}(window,document,"script","https://js.datadome.co/tags.js","99B1C08278137CE22ADB60CE8DE020", {"ajaxListenerPath": true});</script>
+<div data-shaka-player-container style='position:absolute;z-index: -1;top: 0;left: 0;width: 100%; height: 100%;object-fit: cover;'><video autoplay data-shaka-player poster="https://speedtrademarket.com/live/logo/poster_sooka.png" id='video' style='width:100%;height:100%;'></video>
+</div>
+
+<style type="text/css">  
+/* Animation */  
+@keyframes fadeInDown{0%{opacity:0;transform:translateY(-20px)}100%{opacity:1;transform:translateY(0)}}  
+@keyframes rubberBand{from{transform:scale3d(1,1,1)}30%{transform:scale3d(1.25,0.75,1)}40%{transform:scale3d(0.75,1.25,1)}50%{transform:scale3d(1.15,0.85,1)}65%{transform:scale3d(.95,1.05,1)}75%{transform:scale3d(1.05,.95,1)}to{transform:scale3d(1,1,1)}}  
+/* Say Hi to Adblock */  
+#arlinablock{background:rgba(0,0,0,0.65);position:fixed;margin:auto;left:0;right:0;top:0;bottom:0;overflow:auto;z-index:999999;animation:fadeInDown 1s}  
+#arlinablock .header{margin:0 0 15px 0}  
+#arlinablock .inner{rgb(105,105,105);color:#fff;box-shadow:0 10px 20px rgba(0,0,0,0.1);text-align:center;width:600px;padding:40px;border-radius:5px;margin:7% auto 2% auto;animation:rubberBand 1s}  
+#arlinablock button{padding:10px 20px;border:0;background:rgba(0,0,0,0.15);color:#fff;margin:20px 5px;cursor:pointer;transition:all .3s}  
+#arlinablock button:hover{background:rgba(0,0,0,0.35);color:#fff;outline:none}  
+#arlinablock button.active,#arlinablock button:hover.active{background:#fff;color:#222;outline:none}  
+#arlinablock .fixblock{background:#fff;text-align:left;color:#000;padding:20px;height:250px;overflow:auto;line-height:30px}  
+#arlinablock .fixblock div{display:none}  
+#arlinablock .fixblock div.active{display:block}  
+#arlinablock ol{margin-left:20px}  
+@media(max-width:768px){#arlinablock .inner{width:calc(100% - 20px);margin:10px auto;padding:15px}}  
+</style>
+<script> 
+!function(){function f(){var a=document.createElement("div");a.id="arlinablock";a.innerHTML='<div class="inner"> <div class="header"> <h1 style="color:red;">Adblock Detected! We Noticed That You Were Using An Ad Blocker. </h1> </div> <div class="isi"> <storng><h3>To continue enjoying our content, please turn off your ad blocker.</h3></strong> </div><p><p> </div> </div>'; 
+document.body.append(a);document.body.style.overflow="hidden";var b=a.querySelectorAll("button");a.querySelector(".close");var d=a.querySelectorAll(".fixblock > div");for(a=0;a<b.length;a++)b[a].addEventListener("click",function(a){a.preventDefault();a=this.getAttribute("class").split(" ")[0];for(var c=0;c<d.length;c++)d[c].classList.remove("active"),b[c].classList.remove("active");b[a-1].classList.add("active");d[a-1].classList.add("active")})}var b=document.createElement("script");b.type="text/javascript"; 
+b.async=!0;b.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js";b.onerror=function(){f();window.adblock=!0};var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(b,e)}(); 
+</script>
+<script src='https://arjunaaaaa.github.io/lsbtv/ua.js' crossorigin='anonymous'>
+		</script>
+<script>
+const manifestUri = "https://d1fk7kbmz4il3.cloudfront.net/CH5/masterCH5.mpd";
+async function init() {
+const video = document.getElementById('video');
+const ui = video['ui'];
+const controls = ui.getControls();
+const player = controls.getPlayer();
+window.player = player;
+window.ui = ui;
+player.configure({
+drm: {"clearKeys": {
+"99685545491d40b493b3a4b263c7245e": "7939e335bf8cbbd6882f9f5c9cdebe19"
+}
+}
+});player.addEventListener('error', onPlayerErrorEvent);
+controls.addEventListener('error', onUIErrorEvent);
+try {
+await player.load(manifestUri);
+console.log('The video has now been loaded!');
+} catch (error) {
+onPlayerError(error);
+}
+player.getNetworkingEngine().registerRequestFilter(function(type, request) {
+if (type == shaka.net.NetworkingEngine.RequestType.SEGMENT) {
+request.headers['authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3bXZlciI6Miwid21pZGZtdCI6ImFzY2lpIiwid21pZHR5cCI6MSwid21rZXl2ZXIiOjEsIndtaWRsZW4iOjUxMiwid21pZCI6Ik5UQm1ZV1kyTVRndFpHWm1OaTAwTlRnMExXSmpOR010WlRsaE9EaGlZbUl5WWpBMSIsIndtb3BpZCI6MzIsImV4cCI6MTcwMDkwMTg3MywiaWF0IjoxNzAwMjk3ODczfQ.47O5mRVNfAt2fpJiK0VdSCwWSlDmDWAOiq-jnjw6168';}
+});    
+}
+
+function onPlayerErrorEvent(errorEvent) {
+onPlayerError(event.detail);
+}
+
+function onPlayerError(error) {
+console.error('Error code', error.code, 'object', error);
+}
+
+function onUIErrorEvent(errorEvent) {
+onPlayerError(event.detail);
+}
+
+function initFailed(errorEvent) {
+console.error('Unable to load the UI library!');
+}
+document.addEventListener('shaka-ui-loaded', init);
+document.addEventListener('shaka-ui-load-failed', initFailed);
+</script>
+
+</body>
+
+</html>]
