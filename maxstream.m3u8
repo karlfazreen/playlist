@@ -1,5 +1,5 @@
 #EXTM3U 
-#EXT-X-VERSION:4
+#EXT-X-VERSION:3
 #EXT-X-INDEPENDENT-SEGMENTS
 #EXT-X-STREAM-INF:BANDWIDTH=844100,RESOLUTION=640x360,NAME="360p" https://cdngb196.indihometv.com/joss/194/maxstream/chunklist_w1764294099_b844100_sleng.m3u8#cell=lcore #EXT-X-STREAM-INF:BANDWIDTH=1244100,RESOLUTION=960x540,NAME="540p" https://cdngb196.indihometv.com/joss/194/maxstream/chunklist_w1764294099_b1244100_sleng.m3u8#cell=lcore #EXT-X-STREAM-INF:BANDWIDTH=1544100,RESOLUTION=1280x720,NAME="720p" https://cdngb196.indihometv.com/joss/194/maxstream/chunklist_w1764294099_b1544100_sleng.m3u8#cell=lcore #EXT-X-STREAM-INF:BANDWIDTH=2544100,RESOLUTION=1920x1080,NAME="1080p"
 https://cdngb196.indihometv.com/joss/194/maxstream/chunklist_w1764294099_b2544100_sleng.m3u8#cell=lcore
