@@ -1,5 +1,5 @@
 #EXTM3U
-#EXT-X-STREAM-INF:BANDWIDTH=1,AVERAGE-BANDWIDTH=3000000
+#EXT-X-STREAM-INF:BANDWIDTH=1,AVERAGE-BANDWIDTH=1
 https://live.ferymaleha.workers.dev/link.zozotv.xyz:443/live/rozila969/abc12345/36.m3u8
 
 
