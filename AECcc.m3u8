@@ -1,9 +1,5 @@
 #EXTM3U
 #EXT-X-VERSION:3
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2000000
-https://smt.sky4k.eu.org/live20899/index.m3u8?id=AEC
-https://lnk.ec/234992751007.m3u8
-http://muka03.wanicelife.com:8880/live/3ca7283n03/asdf23e423/1723.m3u8
-http://w.nasvpn.xyz:8080/live/haji/haji/3292.m3u8
-https://smt.sky4k.eu.org/AEC_V6/index.php?play=stream1&id=AstroAEC
+#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=3000000
+https://live.ferymaleha.workers.dev/ktpremium.com:443/live/KeluargaKu/Nakama/912833.m3u8
 
