@@ -1,5 +1,7 @@
 #EXTM3U
 #EXT-X-STREAM-INF:BANDWIDTH=1,AVERAGE-BANDWIDTH=1
+http://50.7.234.10:8278/Ria-0/playlist.m3u8
+
 https://live.ferymaleha.workers.dev/link.zozotv.xyz/live/FR101/piJci/532.ts
 
 http://50.7.234.10:8278/Ria/playlist.m3u8
