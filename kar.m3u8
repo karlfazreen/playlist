@@ -1,6 +1,9 @@
 #EXTM3U
 #EXT-X-VERSION:3
-#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=2000000
+#EXT-X-TARGETDURATION:15
+#EXT-X-MEDIA-SEQUENCE:1710567397
+#EXTINF:https://live.ferymaleha.workers.dev/link.zozotv.xyz/live/FR101/piJci/532.ts
+
 http://50.7.234.10:8278/Ria/playlist.m3u8
 http://50.7.234.10:8278/Ria_mega/playlist.m3u8
 http://startv365.com/live/9794783213/6955630461/79321.m3u8
