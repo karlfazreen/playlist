@@ -1,3 +1,4 @@
+
 <!DOCTYPE html><html><head>
 <title>CloudSevenTV</title>
 <style>div a img{visibility:hidden;}body{margin:0;background-color: black;}</style>
@@ -8,7 +9,7 @@
 <!-- <script src="./shaka.php?js=16888&libraryfont=Arial"></script> -->
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/controls.min.css' crossorigin='anonymous' />
 
-<center><b><p style="color:white; opacity:0.35;">CloudSevenTV_Trademark</b></p>
+<center><b><p style="color:white; opacity:0.35;">CloudSevenTV Trademark</b></p>
 <body>
 <style>
     /* Add your gradient styles here */
@@ -49,7 +50,7 @@
 </div>
   <script>
 
-const manifestUri = "https://linears-playback.astro.com.my/vsg/41PdyUsnhaE4IBXdQWp9Q9aFyce-By-pvf6Az1pxixJY8=a2Mn/dash-wv/jitp-linearwm/1004/default_primary.mpd";
+const manifestUri = "http://d1w72er2qn2fg9.cloudfront.net/ria.mpd";
 async function init() {
 const video = document.getElementById('video');
 const ui = video['ui'];
@@ -57,10 +58,10 @@ const controls = ui.getControls();
 const player = controls.getPlayer();
 window.player = player;
 window.ui = ui;
-
+player.setTextTrackVisibility(true);
 player.configure({
 drm: {"clearKeys": {
-      '3f726fd5cbbf5944437a4dbfab431b10': '376b009796e4ad50ea8f68d796676692'},
+      '3f726fd5cbbf5944437a4dbfab431b10':'376b009796e4ad50ea8f68d796676692'},
 },
   
 abr: {
