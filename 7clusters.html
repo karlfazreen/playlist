@@ -1,0 +1,117 @@
+[<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="List of channels with play links.">
+    <meta name="robots" content="translate">
+    <title>VOD List</title>
+        <style>
+        body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; color: #212529; }
+        .header { display: flex; justify-content: space-between; align-items: center; background-color: #343a40; color: #fff; padding: 15px 20px; font-size: 24px; }
+        .refresh-button { font-size: 16px; color: #007bff; background-color: transparent; border: none; cursor: pointer; text-decoration: underline; }
+        .container { max-width: 1200px; margin: 5px auto; padding: 5px; background-color: #fff; box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); border-radius: 5px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 5px; }
+        th, td { padding: 12px; text-align: center; border-bottom: 1px solid #dee2e6; border-right: 1px solid #dee2e6; }
+        th { background-color: #007bff; color: #fff; }
+        th:last-child, td:last-child { border-right: none; }
+        td a.play-button { display: inline-block; padding: 8px 12px; background-color: #28a745; color: #fff; border-radius: 4px; text-decoration: none; }
+        td a.play-button:hover { background-color: #218838; }
+        td[data-label="Name"@CCORCH@ {
+    max-width: 150px; /* Sesuaikan dengan lebar kolom */
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+        img { max-height: 80px; width: 45px; }
+        .bg1 { background-color: #f8f9fa; }
+        .bg2 { background-color: #e9ecef; }
+        .app-notification { background-color: #ffecb5; padding: 0px; text-align: center; border: 1px solid #ffeeba; border-radius: 0px; max-width: 768px; margin: 0 auto; }
+        .app-notification a { color: #007bff; text-decoration: none; font-weight: bold; }
+        .search-container { margin-top: 20px; text-align: center; }
+        .search-input { padding: 10px; font-size: 16px; width: 100%; max-width: 300px; border: 1px solid #ced4da; border-radius: 5px; }
+        @media (max-width: 768px) { .header { flex-direction: row; } }
+    </style>
+   <script>
+        function searchChannels() {
+            let input = document.getElementById("searchInput").value.toUpperCase();
+            let table = document.getElementById("channelTable");
+            let rows = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < rows.length; i++) {
+                let nameCell = rows[i@CCORCH@.getElementsByTagName("td")[0@CCORCH@;
+                if (nameCell) {
+                    let name = nameCell.textContent || nameCell.innerText;
+                    if (name.toUpperCase().indexOf(input) > -1) {
+                        rows[i@CCORCH@.style.display = "";
+                    } else {
+                        rows[i@CCORCH@.style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+
+<!-- Notifikasi untuk Menginstal Aplikasi -->
+<div class="app-notification">
+    <p>Install <a href="go:nsplayer" target="_blank">NS-Player</a> to play Channel.</p>
+</div>
+
+<div class="header">
+    <div class="title">7 Serangkai</div>
+    <a class="refresh-button" href="#" onclick="window.location.reload()">Refresh</a>
+</div>
+    <table id="channelTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Logo</th>
+                <th>Play</th>
+            </tr>
+        </thead>
+        <tbody>
+                    <tr class="bg1">
+                <td data-label="Name">104 Astro Ria FHD</td>
+                <td data-label="Logo"><img src="https://upload.wikimedia.org/wikipedia/en/3/39/Astro_Ria_HD.png" alt="Logo"></td>
+                <td data-label="Play"><a class="play-button" href="intent://d1w72er2qn2fg9.cloudfront.net/ria.mpd|drmScheme=clearkey&drmLicense=3f726fd5cbbf5944437a4dbfab431b10%3A376b009796e4ad50ea8f68d796676692#Intent;scheme=https;type=video/*;package=com.genuine.leone;S.browser_fallback_url=market://details?id=com.genuine.leone.ad;S.title=MYTV;end" target="_blank">Play</a></td>
+            </tr>
+                        <tr class="bg2">
+                <td data-label="Name">105 Astro Prima</td>
+                <td data-label="Logo"><img src="https://upload.wikimedia.org/wikipedia/en/d/d7/Astro_Prima_HD.png" alt="Logo"></td>
+                <td data-label="Play"><a class="play-button" href="intent://d1w72er2qn2fg9.cloudfront.net/prima.mpd|drmScheme=clearkey&drmLicense=0b65326aede3edbe81e6fb40317d5310%3A8412f444ffbe350cf2ece051f9152e90#Intent;scheme=https;type=video/*;package=com.genuine.leone;S.browser_fallback_url=market://details?id=com.genuine.leone.ad;S.title=MYTV;end" target="_blank">Play</a></td>
+            </tr>
+                        <tr class="bg1">
+                <td data-label="Name">107 Astro Warna </td>
+                <td data-label="Logo"><img src="https://upload.wikimedia.org/wikipedia/en/8/8c/Astro_Warna_HD.png" alt="Logo"></td>
+                <td data-label="Play"><a class="play-button" href="intent://d1w72er2qn2fg9.cloudfront.net/warna.mpd|drmScheme=clearkey&drmLicense=aa2c653f0c05567ae283c4a3271a9810%3A0a80e20c568e88e53c7087c1c6493318#Intent;scheme=https;type=video/*;package=com.genuine.leone;S.browser_fallback_url=market://details?id=com.genuine.leone.ad;S.title=MYTV;end" target="_blank">Play</a></td>
+            </tr>
+                        <tr class="bg2">
+                <td data-label="Name">108 Astro Citra</td>
+                <td data-label="Logo"><img src="https://upload.wikimedia.org/wikipedia/en/1/1a/Astro_Citra_HD.png" alt="Logo"></td>
+                <td data-label="Play"><a class="play-button" href="intent://d1w72er2qn2fg9.cloudfront.net/citra.mpd|drmScheme=clearkey&drmLicense=84bf9ad6848be7db20f9d16823deef10%3A654f2d25a5bfb27c9e5ae0852584a166#Intent;scheme=https;type=video/*;package=com.genuine.leone;S.browser_fallback_url=market://details?id=com.genuine.leone.ad;S.title=MYTV;end" target="_blank">Play</a></td>
+            </tr>
+                        <tr class="bg1">
+                <td data-label="Name">202 Astro Vinmeen</td>
+                <td data-label="Logo"><img src="https://upload.wikimedia.org/wikipedia/en/8/82/Astro_Vinmeen_HD.png" alt="Logo"></td>
+                <td data-label="Play"><a class="play-button" href="intent://d1w72er2qn2fg9.cloudfront.net/vin.mpd|drmScheme=clearkey&drmLicense=c7737edd1d67824fa70df73154bf8110%3A68c5db3b309fab5503a6fdb580ddf281#Intent;scheme=https;type=video/*;package=com.genuine.leone;S.browser_fallback_url=market://details?id=com.genuine.leone.ad;S.title=MYTV;end" target="_blank">Play</a></td>
+            </tr>
+                        <tr class="bg2">
+                <td data-label="Name">241 Box Office Thangathirai FHD</td>
+                <td data-label="Logo"><img src="https://linear-poster.astro.com.my/prod/logo/Astro_BoxOffice_Movies_v1.png" alt="Logo"></td>
+                <td data-label="Play"><a class="play-button" href="intent://d1w72er2qn2fg9.cloudfront.net/thang.mpd|drmScheme=clearkey&drmLicense=918adebe10a9848d567dc6cb5adce510%3A084e76561bba9d4f3ae953acdd37b3ed#Intent;scheme=https;type=video/*;package=com.genuine.leone;S.browser_fallback_url=market://details?id=com.genuine.leone.ad;S.title=MYTV;end" target="_blank">Play</a></td>
+            </tr>
+                        <tr class="bg1">
+                <td data-label="Name">311 Astro AOD</td>
+                <td data-label="Logo"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/87_144.png" alt="Logo"></td>
+                <td data-label="Play"><a class="play-button" href="intent://d1w72er2qn2fg9.cloudfront.net/aod.mpd|drmScheme=clearkey&drmLicense=286aef4e8d85db66e05fe4a5c799e410%3A176e2938bce795d1c85559a2440477f7#Intent;scheme=https;type=video/*;package=com.genuine.leone;S.browser_fallback_url=market://details?id=com.genuine.leone.ad;S.title=MYTV;end" target="_blank">Play</a></td>
+            </tr>
+                    </tbody>
+    </table>
+</div>
+</body>
+</html>]
