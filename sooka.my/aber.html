@@ -96,42 +96,13 @@
             player.getNetworkingEngine().registerRequestFilter((type, request) => {
                 if (type === shaka.net.NetworkingEngine.RequestType.LICENSE) {
                     request.headers['Authorization'] = bearerToken;
+                    request.headers['User-Agent'] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36";
                 }
             });
             
             try {
                 await player.load(manifestUri);
                 console.log('The video has been loaded successfully!');
-                
-                // Populate resolution options
-                const tracks = player.getVariantTracks();
-                const resolutionSelect = document.getElementById('resolution');
-                resolutionSelect.innerHTML = '';
-                tracks.forEach(track => {
-                    const option = document.createElement('option');
-                    option.value = track.id;
-                    option.textContent = `${track.height}p`;
-                    resolutionSelect.appendChild(option);
-                });
-                resolutionSelect.addEventListener('change', () => {
-                    const selectedId = parseInt(resolutionSelect.value);
-                    player.selectVariantTrack(tracks.find(t => t.id === selectedId), true);
-                });
-                
-                // Populate subtitle options
-                const textTracks = player.getTextTracks();
-                const subtitleSelect = document.getElementById('subtitles');
-                subtitleSelect.innerHTML = '';
-                textTracks.forEach(track => {
-                    const option = document.createElement('option');
-                    option.value = track.id;
-                    option.textContent = track.language.toUpperCase();
-                    subtitleSelect.appendChild(option);
-                });
-                subtitleSelect.addEventListener('change', () => {
-                    const selectedId = parseInt(subtitleSelect.value);
-                    player.selectTextTrack(textTracks.find(t => t.id === selectedId));
-                });
             } catch (error) {
                 console.error('Error loading video:', error);
             }
