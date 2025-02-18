@@ -35,16 +35,17 @@
         #videoContainer::before {
             content: "CloudSevenTV";
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 12vw;  /* Ensure the text is large enough to be visible */
+            font-size: 15vw; /* Membuat teks lebih besar */
             font-weight: bold;
-            color: rgba(255, 255, 255, 0.1);  /* Light enough to stay in the background */
+            color: rgba(255, 255, 255, 0.3);  /* Meningkatkan kontras */
             position: absolute;
             z-index: 1;
             text-transform: uppercase;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            white-space: nowrap; /* Prevent the text from wrapping */
+            white-space: nowrap;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Menambahkan bayang untuk teks */
         }
 
         video {
@@ -92,7 +93,7 @@
             var video = document.getElementById("videoPlayer");
             var videoContainer = document.getElementById("videoContainer");
             var fullscreenBtn = document.getElementById("fullscreenBtn");
-            var videoSrc = "https://cloud7even.short.gy/arenabola1/fmp4_video.m3u8?u=cvappuser&p=0f573e68e00dff8dca0ea6fb2e78c1b9b490a64e8d103112965404558fc00aa8";
+            var videoSrc = "https://cvnewitvlive-cdn.skyiptv.eu.org/stream/smtmynsg/arenabola1/fmp4_video.m3u8?u=cvappuser&p=0f573e68e00dff8dca0ea6fb2e78c1b9b490a64e8d103112965404558fc00aa8";
 
             // HLS.js support
             if (Hls.isSupported()) {
