@@ -7,7 +7,7 @@
     <script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
 </head>
 <body>
-    <h2>Live TV Stream</h2>
+    <h2>Live TV Stream (Auto Resolusi)</h2>
     <video id="videoPlayer" controls autoplay style="width: 100%; max-width: 800px;"></video>
 
     <script>
@@ -24,6 +24,19 @@
 
             // Konfigurasi Dash.js
             player.initialize(video, url, true);
+
+            // Aktifkan Adaptive Bitrate (ABR) untuk auto resolusi
+            player.updateSettings({
+                streaming: {
+                    abr: {
+                        autoSwitchBitrate: {
+                            audio: true,
+                            video: true
+                        },
+                        useDefaultABRRules: true
+                    }
+                }
+            });
 
             // Tetapkan kunci DRM ClearKey
             player.setProtectionData({
