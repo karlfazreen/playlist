@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>cloudseven Live TV</title>
+    <title>C7 Live TV</title>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&display=swap');
@@ -35,12 +35,16 @@
         #videoContainer::before {
             content: "CloudSevenTV";
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 8vw;
+            font-size: 15vw;  /* Ensure the text is large enough to be visible */
             font-weight: bold;
-            color: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.15);  /* Light enough to stay in the background */
             position: absolute;
             z-index: 1;
             text-transform: uppercase;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            white-space: nowrap; /* Prevent the text from wrapping */
         }
 
         video {
@@ -76,9 +80,9 @@
     </style>
 </head>
 <body>
-    <h2>cloudseven live TV</h2>
+    <h2>cloudseven TV Stream </h2>
     <div id="videoContainer">
-        <video id="videoPlayer" controls autoplay playsinline></video>
+        <video id="videoPlayer" controls autoplay playsinline muted></video>
     </div>
     <br>
     <button id="fullscreenBtn">Fullscreen</button>
@@ -88,8 +92,9 @@
             var video = document.getElementById("videoPlayer");
             var videoContainer = document.getElementById("videoContainer");
             var fullscreenBtn = document.getElementById("fullscreenBtn");
-            var videoSrc = "https://cvnewitvlive-cdn.skyiptv.eu.org/stream/smtmynsg/arenabola1/fmp4_video.m3u8?u=cvappuser&p=0f573e68e00dff8dca0ea6fb2e78c1b9b490a64e8d103112965404558fc00aa8";
+            var videoSrc = "https://cloud7even.short.gy/arenabola_HLS.m3u8?u=cvappuser&p=0f573e68e00dff8dca0ea6fb2e78c1b9b490a64e8d103112965404558fc00aa8";
 
+            // HLS.js support
             if (Hls.isSupported()) {
                 var hls = new Hls({
                     xhrSetup: function (xhr, url) {
