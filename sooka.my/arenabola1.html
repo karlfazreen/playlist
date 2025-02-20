@@ -10,8 +10,6 @@
     <style>
         body { margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; background: black; }
         .video-container { width: 80%; max-width: 800px; position: relative; }
-        .resolution-btns { position: absolute; bottom: 10px; right: 10px; }
-        button { margin: 2px; padding: 5px 10px; background: white; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -19,12 +17,6 @@
         <video id="my-video" class="video-js vjs-default-skin" controls preload="auto" width="100%" height="100%" crossorigin="anonymous">
             <source src="https://cvnewitvlive-cdn.skyiptv.eu.org/stream/smtmynsg/arenabola1/fmp4_video.m3u8?u=cvappuser&p=0f573e68e00dff8dca0ea6fb2e78c1b9b490a64e8d103112965404558fc00aa8" type="application/x-mpegURL">
         </video>
-        <div class="resolution-btns">
-            <button onclick="changeResolution('auto')">Auto</button>
-            <button onclick="changeResolution('720p')">720p</button>
-            <button onclick="changeResolution('480p')">480p</button>
-            <button onclick="changeResolution('360p')">360p</button>
-        </div>
     </div>
     <script>
         var player = videojs('my-video', {
@@ -34,19 +26,18 @@
                 }
             }
         });
-        function changeResolution(res) {
-            var sources = {
-                'auto': 'https://cvnewitvlive-cdn.skyiptv.eu.org/stream/smtmynsg/arenabola1/fmp4_video.m3u8?u=cvappuser&p=0f573e68e00dff8dca0ea6fb2e78c1b9b490a64e8d103112965404558fc00aa8',
-                '720p': 'https://cvnewitvlive-cdn.skyiptv.eu.org/stream/smtmynsg/arenabola1/720p.m3u8',
-                '480p': 'https://cvnewitvlive-cdn.skyiptv.eu.org/stream/smtmynsg/arenabola1/480p.m3u8',
-                '360p': 'https://cvnewitvlive-cdn.skyiptv.eu.org/stream/smtmynsg/arenabola1/360p.m3u8'
-            };
-            player.src({
-                src: sources[res],
-                type: 'application/x-mpegURL'
-            });
-            player.play();
-        }
+        
+        // Menambah user-agent dan referrer
+        var videoElement = document.getElementById('my-video');
+        var sourceElement = videoElement.getElementsByTagName('source')[0];
+        
+        var headers = new Headers();
+        headers.append("User-Agent", "Y3YudHZwbHVzLzMzIChMaW51eDtBbmRyb2lkIDguMS4wKSBBbmRyb2lkWE1lZGlhMy8xLjEuMQ==");
+        headers.append("Referer", "Q2hlZXJWaXNpb25fVFYrX0xpVmVfODg4XzY2Nl84ODg4");
+        
+        fetch(sourceElement.src, { headers: headers })
+            .then(response => console.log("Stream request sent with headers."))
+            .catch(error => console.error("Error setting headers:", error));
     </script>
 </body>
 </html>
