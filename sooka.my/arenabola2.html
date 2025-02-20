@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Cloud Seven TV</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        body {
+            text-align: center;
+            background-color: #000;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #videoContainer {
+            position: relative;
+            width: 100vw;
+            height: 56.25vw; /* 16:9 aspect ratio */
+            max-width: 900px;
+            max-height: 506px;
+            margin: auto;
+            background-color: black;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        .fullscreen {
+            width: 100vw !important;
+            height: 100vh !important;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: black;
+            z-index: 9999;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #f00;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Arena Bola 2</h2>
+    <div id="videoContainer">
+        <video id="videoPlayer" controls autoplay playsinline></video>
+    </div>
+    <br>
+    <button id="fullscreenBtn">Fullscreen</button>
+
+    <script>
+        (function() {
+            var _0xabc1 = [
+                "\x73\x74\x72\x65\x61\x6d\x2F\x73\x6D\x74\x6D\x79\x6E\x73\x67\x2F\x61\x72\x65\x6E\x61\x62\x6F\x6C\x61\x32\x2F\x66\x6D\x70\x34\x5F\x76\x69\x64\x65\x6F\x2E\x6D\x33\x75\x38",
+                "\x63\x76\x6E\x65\x77\x69\x74\x76\x6C\x69\x76\x65\x2D\x63\x64\x6E\x2E\x73\x6B\x79\x69\x70\x74\x76\x2E\x65\x75\x2E\x6F\x72\x67",
+                "\x68\x74\x74\x70\x73\x3A\x2F\x2F",
+                "\x75\x3D\x63\x76\x61\x70\x70\x75\x73\x65\x72\x26\x70\x3D\x30\x66\x35\x37\x33\x65\x36\x38\x65\x30\x30\x64\x66\x66\x38\x64\x63\x61\x30\x65\x61\x36\x66\x62\x32\x65\x37\x38\x63\x31\x62\x39\x62\x34\x39\x30\x61\x36\x34\x65\x38\x64\x31\x30\x33\x31\x31\x32\x39\x36\x35\x34\x30\x34\x35\x35\x38\x66\x63\x30\x30\x61\x61\x38"
+            ];
+
+            function _0xencodeUrl() {
+                return _0xabc1[2] + _0xabc1[1] + "/" + _0xabc1[0] + "?" + _0xabc1[3]; 
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                var video = document.getElementById("videoPlayer");
+                var videoContainer = document.getElementById("videoContainer");
+                var fullscreenBtn = document.getElementById("fullscreenBtn");
+
+                if (Hls.isSupported()) {
+                    var hls = new Hls({
+                        xhrSetup: function (xhr, url) {
+                            xhr.setRequestHeader("User-Agent", "Y3YudHZwbHVzLzMzIChMaW51eDtBbmRyb2lkIDguMS4wKSBBbmRyb2lkWE1lZGlhMy8xLjEuMQ==");
+                            xhr.setRequestHeader("Referer", "Q2hlZXJWaXNpb25fVFYrX0xpVmVfODg4XzY2Nl84ODg4");
+                        }
+                    });
+
+                    hls.loadSource(_0xencodeUrl());
+                    hls.attachMedia(video);
+                    hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                        video.play();
+                    });
+                } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+                    video.src = _0xencodeUrl();
+                    video.addEventListener("loadedmetadata", function () {
+                        video.play();
+                    });
+                } else {
+                    alert("Browser tidak menyokong HLS streaming!");
+                }
+
+                function toggleFullscreen() {
+                    if (document.fullscreenElement || document.webkitFullscreenElement) {
+                        if (document.exitFullscreen) {
+                            document.exitFullscreen();
+                        } else if (document.webkitExitFullscreen) {
+                            document.webkitExitFullscreen();
+                        } else {
+                            videoContainer.classList.remove("fullscreen");
+                        }
+                    } else {
+                        if (videoContainer.requestFullscreen) {
+                            videoContainer.requestFullscreen();
+                        } else if (videoContainer.mozRequestFullScreen) {
+                            videoContainer.mozRequestFullScreen();
+                        } else if (videoContainer.webkitRequestFullscreen) {
+                            videoContainer.webkitRequestFullscreen();
+                        } else if (videoContainer.msRequestFullscreen) {
+                            videoContainer.msRequestFullscreen();
+                        } else {
+                            videoContainer.classList.add("fullscreen");
+                        }
+                    }
+                }
+
+                fullscreenBtn.addEventListener("click", toggleFullscreen);
+                video.addEventListener("click", function () {
+                    if (video.requestFullscreen) {
+                        video.requestFullscreen();
+                    } else if (video.webkitRequestFullscreen) {
+                        video.webkitRequestFullscreen();
+                    } else if (videoContainer.requestFullscreen) {
+                        videoContainer.requestFullscreen();
+                    } else {
+                        videoContainer.classList.add("fullscreen");
+                    }
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
