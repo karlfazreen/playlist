@@ -11,11 +11,6 @@
             50% { text-shadow: 0 0 10px #ff6600, 0 0 20px #ff6600, 0 0 30px #ff6600; }
             100% { text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000; }
         }
-        @keyframes blinking {
-            0% { opacity: 1; }
-            50% { opacity: 0; }
-            100% { opacity: 1; }
-        }
         body {
             text-align: center;
             background: url('https://i.ibb.co/6ZcH3Gz/Astro-Arena-Bola-1-2024.png') no-repeat center center fixed;
@@ -42,7 +37,7 @@
             font-weight: bold;
             font-family: 'Comic Sans MS', cursive, sans-serif;
             color: #ff0000;
-            animation: glowing 1.5s infinite alternate, blinking 1s infinite;
+            animation: glowing 1.5s infinite alternate;
         }
         #videoContainer {
             position: relative;
@@ -104,7 +99,13 @@
                 var fullscreenBtn = document.getElementById("fullscreenBtn");
 
                 if (Hls.isSupported()) {
-                    var hls = new Hls();
+                    var hls = new Hls({
+                        xhrSetup: function (xhr, url) {
+                            xhr.setRequestHeader("User-Agent", "Y3YudHZwbHVzLzMzIChMaW51eDtBbmRyb2lkIDguMS4wKSBBbmRyb2lkWE1lZGlhMy8xLjEuMQ==");
+                            xhr.setRequestHeader("Referer", "Q2hlZXJWaXNpb25fVFYrX0xpVmVfODg4XzY2Nl84ODg4");
+                        }
+                    });
+
                     hls.loadSource(_0xencodeUrl());
                     hls.attachMedia(video);
                     hls.on(Hls.Events.MANIFEST_PARSED, function () {
