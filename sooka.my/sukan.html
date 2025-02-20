@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TV Streaming</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .channel {
+            background-color: #1e1e1e;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            width: 250px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .channel:hover {
+            transform: scale(1.05);
+        }
+        .channel img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .channel p {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+    </style>
+    <script>
+        // Detect Sniffer
+        (function() {
+            let originalFetch = window.fetch;
+            window.fetch = function(...args) {
+                if (args[0].includes("m3u8")) {
+                    alert("Anda didapati menggunakan sniffer & penstriman tidak dapat diteruskan");
+                    return new Promise(() => {});
+                }
+                return originalFetch.apply(this, args);
+            };
+        })();
+    </script>
+</head>
+<body>
+    <h1>Pilih Siaran TV</h1>
+    <div class="container">
+        <div class="channel" onclick="window.location.href='https://karlfazreen.github.io/playlist/sooka.my/arenabola1.html'">
+            <img src="https://i.ibb.co/6ZcH3Gz/Astro-Arena-Bola-1-2024.png" alt="Arena Bola 1">
+            <p>Arena Bola 1</p>
+        </div>
+        <div class="channel" onclick="window.location.href='https://karlfazreen.github.io/playlist/sooka.my/arenabola2.html'">
+            <img src="https://i.ibb.co/DKm4KX2/Astro-Arena-Bola-2-2024.png" alt="Arena Bola 2">
+            <p>Arena Bola 2</p>
+        </div>
+        <div class="channel" onclick="window.location.href='https://karlfazreen.github.io/playlist/sooka.my/apl1.html'">
+            <img src="https://i.ibb.co/PQ0nV9S/Astro-Premier-League-1-2024.png" alt="Premier League 1">
+            <p>Premier League 1</p>
+        </div>
+        <div class="channel" onclick="window.location.href='https://karlfazreen.github.io/playlist/sooka.my/apl2.html'">
+            <img src="https://i.ibb.co/7YwbB5t/Astro-Premier-League-2-2024.png" alt="Premier League 2">
+            <p>Premier League 2</p>
+        </div>
+        <div class="channel" onclick="window.location.href='https://karlfazreen.github.io/playlist/sooka.my/gstand.html'">
+            <img src="https://i.ibb.co/hHgsSNF/Astro-Grandstand-2024.png" alt="Grandstand">
+            <p>Grandstand</p>
+        </div>
+    </div>
+</body>
+</html>
