@@ -30,7 +30,7 @@
             flex-direction: column;
             color: white;
             z-index: 9999;
-            animation: fadeOut 3s forwards;
+            animation: fadeOut 5s forwards;
         }
         @keyframes fadeOut {
             0% { opacity: 1; }
@@ -48,6 +48,16 @@
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+        /* Fancy Text */
+        #splash h1 {
+            font-size: 3em;
+            font-weight: bold;
+            text-shadow: 0 0 10px red, 0 0 20px yellow, 0 0 30px orange;
+        }
+        #splash p {
+            font-size: 1.5em;
+            text-shadow: 0 0 5px cyan, 0 0 10px blue;
         }
         /* Channel Container */
         .channel-container {
@@ -120,7 +130,7 @@
         window.onload = function() {
             setTimeout(() => {
                 document.getElementById('splash').style.display = 'none';
-            }, 3000);
+            }, 5000);
         };
         
         function stream(url) {
