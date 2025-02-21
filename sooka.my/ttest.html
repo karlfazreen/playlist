@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penstriman Video</title>
+    <title>CloudsevenTV</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.6/shaka-player.compiled.min.js"></script>
     <style>
         body {
@@ -100,6 +100,16 @@
                 ];
                 await player.load(manifestArray.join(""));
                 console.log('Penstriman dimuat dengan jayanya!');
+                
+                // Tambah ClearKey DRM dengan Hexadecimal Escape Sequences
+                player.configure({
+                    drm: {
+                        clearKeys: {
+                            '\x31\x65\x63\x65\x33\x65\x63\x62\x34\x31\x36\x39\x39\x65\x38\x35\x35\x63\x36\x64\x63\x39\x61\x32\x38\x33\x39\x30\x38\x32\x31\x30': 
+                            '\x62\x61\x30\x38\x62\x65\x37\x36\x37\x65\x31\x61\x35\x65\x38\x39\x37\x37\x37\x65\x36\x38\x61\x36\x39\x39\x38\x61\x38\x63\x31\x39'
+                        }
+                    }
+                });
             } catch (error) {
                 console.error('Ralat semasa memuatkan penstriman:', error);
             }
