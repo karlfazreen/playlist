@@ -62,8 +62,13 @@
             background-color: black;
             z-index: 9999;
         }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
         button {
-            margin-top: 10px;
             padding: 10px;
             font-size: 16px;
             cursor: pointer;
@@ -79,15 +84,19 @@
     <div id="videoContainer">
         <video id="videoPlayer" controls autoplay playsinline></video>
     </div>
-    <br>
-    <button id="fullscreenBtn">Fullscreen</button>
+    <div class="button-container">
+        <button id="fullscreenBtn">Fullscreen</button>
+        <button id="homeBtn">Back to Home</button>
+    </div>
 
     <script>
         (function() {
-            var _0xabc1 = ["\x73\x74\x72\x65\x61\x6d\x2F\x73\x6D\x74\x6D\x79\x6E\x73\x67\x2F\x61\x72\x65\x6E\x61\x62\x6F\x6C\x61\x31\x2F\x66\x6D\x70\x34\x5F\x76\x69\x64\x65\x6F\x2E\x6D\x33\x75\x38", 
-                            "\x63\x76\x6E\x65\x77\x69\x74\x76\x6C\x69\x76\x65\x2D\x63\x64\x6E\x2E\x73\x6B\x79\x69\x70\x74\x76\x2E\x65\x75\x2E\x6F\x72\x67", 
-                            "\x68\x74\x74\x70\x73\x3A\x2F\x2F", 
-                            "\x75\x3D\x63\x76\x61\x70\x70\x75\x73\x65\x72\x26\x70\x3D\x30\x66\x35\x37\x33\x65\x36\x38\x65\x30\x30\x64\x66\x66\x38\x64\x63\x61\x30\x65\x61\x36\x66\x62\x32\x65\x37\x38\x63\x31\x62\x39\x62\x34\x39\x30\x61\x36\x34\x65\x38\x64\x31\x30\x33\x31\x31\x32\x39\x36\x35\x34\x30\x34\x35\x35\x38\x66\x63\x30\x30\x61\x61\x38"];
+            var _0xabc1 = [
+                "\x73\x74\x72\x65\x61\x6d\x2F\x73\x6D\x74\x6D\x79\x6E\x73\x67\x2F\x61\x72\x65\x6E\x61\x62\x6F\x6C\x61\x31\x2F\x66\x6D\x70\x34\x5F\x76\x69\x64\x65\x6F\x2E\x6D\x33\x75\x38",
+                "\x63\x76\x6E\x65\x77\x69\x74\x76\x6C\x69\x76\x65\x2D\x63\x64\x6E\x2E\x73\x6B\x79\x69\x70\x74\x76\x2E\x65\x75\x2E\x6F\x72\x67",
+                "\x68\x74\x74\x70\x73\x3A\x2F\x2F",
+                "\x75\x3D\x63\x76\x61\x70\x70\x75\x73\x65\x72\x26\x70\x3D\x30\x66\x35\x37\x33\x65\x36\x38\x65\x30\x30\x64\x66\x66\x38\x64\x63\x61\x30\x65\x61\x36\x66\x62\x32\x65\x37\x38\x63\x31\x62\x39\x62\x34\x39\x30\x61\x36\x34\x65\x38\x64\x31\x30\x33\x31\x31\x32\x39\x36\x35\x34\x30\x34\x35\x35\x38\x66\x63\x30\x30\x61\x61\x38"
+            ];
 
             function _0xencodeUrl() {
                 return _0xabc1[2] + _0xabc1[1] + "/" + _0xabc1[0] + "?" + _0xabc1[3];
@@ -95,17 +104,11 @@
 
             document.addEventListener("DOMContentLoaded", function () {
                 var video = document.getElementById("videoPlayer");
-                var videoContainer = document.getElementById("videoContainer");
                 var fullscreenBtn = document.getElementById("fullscreenBtn");
+                var homeBtn = document.getElementById("homeBtn");
 
                 if (Hls.isSupported()) {
-                    var hls = new Hls({
-                        xhrSetup: function (xhr, url) {
-                            xhr.setRequestHeader("User-Agent", "Y3YudHZwbHVzLzMzIChMaW51eDtBbmRyb2lkIDguMS4wKSBBbmRyb2lkWE1lZGlhMy8xLjEuMQ==");
-                            xhr.setRequestHeader("Referer", "Q2hlZXJWaXNpb25fVFYrX0xpVmVfODg4XzY2Nl84ODg4");
-                        }
-                    });
-
+                    var hls = new Hls();
                     hls.loadSource(_0xencodeUrl());
                     hls.attachMedia(video);
                     hls.on(Hls.Events.MANIFEST_PARSED, function () {
@@ -116,9 +119,20 @@
                     video.addEventListener("loadedmetadata", function () {
                         video.play();
                     });
-                } else {
-                    alert("Browser tidak menyokong HLS streaming!");
                 }
+
+                fullscreenBtn.addEventListener("click", function() {
+                    if (!document.fullscreenElement) {
+                        video.requestFullscreen();
+                    } else {
+                        document.exitFullscreen();
+                    }
+                });
+
+                homeBtn.addEventListener("click", function() {
+                    var _0xhome = ["\x68\x74\x74\x70\x73\x3A\x2F\x2F\x6B\x61\x72\x6C\x66\x61\x7A\x72\x65\x65\x6E\x2E\x67\x69\x74\x68\x75\x62\x2E\x69\x6F\x2F\x70\x6C\x61\x79\x6C\x69\x73\x74\x2F\x73\x6F\x6F\x6B\x61\x2E\x6D\x79\x2F\x65\x78\x73\x74\x72\x6F\x2E\x68\x74\x6D\x6C"];
+                    window.location.href = _0xhome[0];
+                });
             });
         })();
     </script>
