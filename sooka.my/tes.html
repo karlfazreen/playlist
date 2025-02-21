@@ -106,24 +106,31 @@
         <p>Memuatkan saluran terbaik untuk anda...</p>
         <div class="loader"></div>
     </div>
+
     <button id="backBtn" onclick="goBack()">Back</button>
+
     <div class="channel-container" id="channelList">
-    <div class="channel" onclick="stream(decodeUrl(encodedUrls[0]))">
-        <img src="https://i.ibb.co/6ZcH3Gz/Astro-Arena-Bola-1-2024.png" alt="Arena Bola 1">
+        <div class="channel" onclick="stream(decodeUrl(encodedUrls[0]))">
+            <img src="https://i.ibb.co/6ZcH3Gz/Astro-Arena-Bola-1-2024.png" alt="Arena Bola 1">
+        </div>
+        <div class="channel" onclick="stream(decodeUrl(encodedUrls[1]))">
+            <img src="https://i.ibb.co/DKm4KX2/Astro-Arena-Bola-2-2024.png" alt="Arena Bola 2">
+        </div>
+        <div class="channel" onclick="stream(decodeUrl(encodedUrls[2]))">
+            <img src="https://i.ibb.co/PQ0nV9S/Astro-Premier-League-1-2024.png" alt="Premier League 1">
+        </div>
+        <div class="channel" onclick="stream(decodeUrl(encodedUrls[3]))">
+            <img src="https://i.ibb.co/7YwbB5t/Astro-Premier-League-2-2024.png" alt="Premier League 2">
+        </div>
+        <div class="channel" onclick="stream(decodeUrl(encodedUrls[4]))">
+            <img src="https://i.ibb.co/hHgsSNF/Astro-Grandstand-2024.png" alt="Grandstand">
+        </div>
     </div>
-    <div class="channel" onclick="stream(decodeUrl(encodedUrls[1]))">
-        <img src="https://i.ibb.co/DKm4KX2/Astro-Arena-Bola-2-2024.png" alt="Arena Bola 2">
-    </div>
-    <div class="channel" onclick="stream(decodeUrl(encodedUrls[2]))">
-        <img src="https://i.ibb.co/PQ0nV9S/Astro-Premier-League-1-2024.png" alt="Premier League 1">
-    </div>
-    <div class="channel" onclick="stream(decodeUrl(encodedUrls[3]))">
-        <img src="https://i.ibb.co/7YwbB5t/Astro-Premier-League-2-2024.png" alt="Premier League 2">
-    </div>
-    <div class="channel" onclick="stream(decodeUrl(encodedUrls[4]))">
-        <img src="https://i.ibb.co/hHgsSNF/Astro-Grandstand-2024.png" alt="Grandstand">
-    </div>
-</div>
+
+    <!-- Iframe untuk WebView -->
+    <iframe id="webview"></iframe>
+
+</body>
 
 <script>
     const encodedUrls = [
