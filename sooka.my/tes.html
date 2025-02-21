@@ -5,14 +5,27 @@
     <title>Shaka Player Streaming</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.6/shaka-player.ui.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.6/controls.min.css" crossorigin="anonymous" />
+    <style>
+        body {
+            margin: 0;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #video {
+            width: 100%;
+            height: 100%;
+            background-color: black;
+        }
+    </style>
 </head>
 
-<body bgcolor='black' style='margin:0'>
-    <center>
-        <div data-shaka-player-container style='width: 100%; height: 100%'>
-            <video autoplay data-shaka-player id='video' style='width:100%;height:100%;'></video>
-        </div>
-    </center>
+<body>
+    <div data-shaka-player-container style="width: 100%; height: 100%;">
+        <video autoplay controls data-shaka-player id="video"></video>
+    </div>
 
     <script>
         const manifestUri = "https://linearjitp-playback.astro.com.my/dash-wv/linear/5108/default_primary.mpd";
@@ -26,7 +39,7 @@
             window.player = player;
             window.ui = ui;
 
-            // Tambah request filter untuk menetapkan header User-Agent
+            // Set user-agent header
             player.getNetworkingEngine().registerRequestFilter((type, request) => {
                 request.headers['User-Agent'] = customUserAgent;
             });
@@ -44,7 +57,8 @@
 
             try {
                 await player.load(manifestUri);
-                console.log('The video has now been loaded!');
+                console.log('Video berjaya dimuat!');
+                checkIfPlaying(video);
             } catch (error) {
                 onPlayerError(error);
             }
@@ -55,7 +69,7 @@
         }
 
         function onPlayerError(error) {
-            console.error('Error code', error.code, 'object', error);
+            console.error('Error kod:', error.code, 'Error objek:', error);
         }
 
         function onUIErrorEvent(errorEvent) {
@@ -63,7 +77,17 @@
         }
 
         function initFailed(errorEvent) {
-            console.error('Unable to load the UI library!');
+            console.error('Gagal memuat UI Shaka Player!');
+        }
+
+        // Periksa jika video dimainkan, jika tidak, cuba play semula
+        function checkIfPlaying(video) {
+            setTimeout(() => {
+                if (video.paused) {
+                    console.warn("Autoplay gagal, cuba mainkan semula.");
+                    video.play().catch(e => console.error("Play error:", e));
+                }
+            }, 2000);
         }
 
         document.addEventListener('shaka-ui-loaded', init);
