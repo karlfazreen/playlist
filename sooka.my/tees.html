@@ -6,7 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.6/shaka-player.ui.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.6/controls.min.css" crossorigin="anonymous" />
     <style>
-        /* Background Gradient Bergerak */
+        /* Background Hitam */
         body {
             margin: 0;
             display: flex;
@@ -14,17 +14,10 @@
             align-items: center;
             height: 100vh;
             position: relative;
-            background: linear-gradient(-45deg, #ff0000, #ff7300, #ffeb00, #00ff00, #008cff);
-            background-size: 300% 300%;
-            animation: gradientBG 10s ease infinite;
+            background-color: black;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
+        /* Video Styling */
         video {
             width: 100%;
             height: 100%;
@@ -32,10 +25,27 @@
             position: relative;
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
         }
+
+        /* Overlay Logo */
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 120px; /* Saiz logo */
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+
+        .logo:hover {
+            opacity: 1;
+        }
     </style>
 </head>
 
 <body>
+    <!-- Overlay Logo -->
+    <img src="https://i.ibb.co/93DM9cS/1200.png" class="logo">
+
     <div data-shaka-player-container style='width: 100%; height: 100%'>
         <video autoplay controls data-shaka-player id='video'></video>
     </div>
