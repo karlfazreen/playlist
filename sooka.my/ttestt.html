@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>CloudSevenTV</title>
+    <link rel="icon" href="https://i.ibb.co/YpDFy9b/custom-icon.png" type="image/png">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: url('https://i.ibb.co/RkPHG7YB/055453000-1602772047-Ilustrasi.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+        /* Splash Screen */
+        #splash {
+    background: linear-gradient(-45deg, #ff0000, #ff6600, #ffcc00, #ff6600);
+    background-size: 400% 400%;
+    animation: gradientMove 5s infinite alternate;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+        /* Loading Animation */
+        .loader {
+            border: 8px solid rgba(255, 255, 255, 0.3);
+            border-top: 8px solid red;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* Fancy Text */
+        #splash h1 {
+            font-size: 3em;
+            font-weight: bold;
+            text-shadow: 0 0 10px red, 0 0 20px yellow, 0 0 30px orange;
+        }
+        #splash p {
+            font-size: 1.5em;
+            text-shadow: 0 0 5px cyan, 0 0 10px blue;
+        }
+        /* Channel Container */
+        .channel-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .channel img {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.channel img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+}
+        /* Fullscreen WebView */
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none;
+        }
+        /* Back Button */
+        #backBtn {
+            display: none;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: red;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="splash">
+        <h1>CloudSevenTV</h1>
+        <p>Memuatkan saluran terbaik untuk anda...</p>
+        <div class="loader"></div>
+    </div>
+    <button id="backBtn" onclick="goBack()">Back</button>
+    <div class="channel-container" id="channelList">
+        <div class="channel" onclick="stream('https://karlfazreen.github.io/playlist/sooka.my/arenabola1.html')">
+            <img src="https://i.ibb.co/6ZcH3Gz/Astro-Arena-Bola-1-2024.png" alt="Arena Bola 1">
+        </div>
+        <div class="channel" onclick="stream('https://karlfazreen.github.io/playlist/sooka.my/arenabola2.html')">
+            <img src="https://i.ibb.co/DKm4KX2/Astro-Arena-Bola-2-2024.png" alt="Arena Bola 2">
+        </div>
+        <div class="channel" onclick="stream('https://karlfazreen.github.io/playlist/sooka.my/apl1.html')">
+            <img src="https://i.ibb.co/PQ0nV9S/Astro-Premier-League-1-2024.png" alt="Premier League 1">
+        </div>
+        <div class="channel" onclick="stream('https://karlfazreen.github.io/playlist/sooka.my/apl2.html')">
+            <img src="https://i.ibb.co/7YwbB5t/Astro-Premier-League-2-2024.png" alt="Premier League 2">
+        </div>
+        <div class="channel" onclick="stream('https://karlfazreen.github.io/playlist/sooka.my/gstand.html')">
+            <img src="https://i.ibb.co/hHgsSNF/Astro-Grandstand-2024.png" alt="Grandstand">
+        </div>
+    </div>
+    <iframe id="webview"></iframe>
+    
+    <script>
+        window.onload = function() {
+    if(localStorage.getItem('visited')) {
+        document.getElementById('splash').style.display = 'none';
+    } else {
+        setTimeout(() => {
+            document.getElementById('splash').style.display = 'none';
+            localStorage.setItem('visited', true);
+        }, 5000);
+    }
+};
+
+        
+        function stream(url) {
+            document.getElementById('channelList').style.display = 'none';
+            document.getElementById('webview').src = url;
+            document.getElementById('webview').style.display = 'block';
+            document.getElementById('backBtn').style.display = 'block';
+        }
+        
+        function goBack() {
+    let webview = document.getElementById('webview');
+    webview.style.display = 'none';
+    webview.src = "about:blank"; // Betul-betul reset iframe
+    document.getElementById('channelList').style.display = 'flex';
+    document.getElementById('backBtn').style.display = 'none';
+}
+
+
+    </script>
+</body>
+</html>
