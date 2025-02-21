@@ -6,7 +6,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.6/shaka-player.ui.min.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.6/controls.min.css" crossorigin="anonymous" />
     <style>
-        /* Background Hitam */
         body {
             margin: 0;
             display: flex;
@@ -14,9 +13,9 @@
             align-items: center;
             height: 100vh;
             background-color: black;
+            position: relative;
         }
 
-        /* Video Styling */
         video {
             width: 100%;
             height: 100%;
@@ -24,69 +23,80 @@
             position: relative;
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
         }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 9999;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
     </style>
 </head>
 
 <body>
+
+    <button class="back-btn" id="backBtn">⬅ Back to Home</button>
 
     <div data-shaka-player-container style='width: 100%; height: 100%'>
         <video autoplay controls data-shaka-player id='video'></video>
     </div>
 
     <script>
-        const manifestUri = "https://linearjitp-playback.astro.com.my/dash-wv/linear/5108/default_primary.mpd";
-        const customUserAgent = "Mozilla/5.0 (Linux; Android 12; Pixel 3a XL Build/SP2A.220505.008; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/114.0.5715.0 Mobile Safari/537.36";
+        (function () {
+            const data = [
+                '\x68\x74\x74\x70\x73://\x6c\x69\x6e\x65\x61\x72\x6a\x69\x74\x70\x2d\x70\x6c\x61\x79\x62\x61\x63\x6b.\x61\x73\x74\x72\x6f.\x63\x6f\x6d.\x6d\x79/\x64\x61\x73\x68\x2d\x77\x76/\x6c\x69\x6e\x65\x61\x72/\x35\x31\x30\x38/\x64\x65\x66\x61\x75\x6c\x74\x5f\x70\x72\x69\x6d\x61\x72\x79.\x6d\x70\x64',
+                '\x31\x65\x63\x65\x33\x65\x63\x62\x34\x31\x36\x39\x39\x65\x38\x35\x35\x63\x36\x64\x63\x39\x61\x32\x38\x33\x39\x30\x38\x32\x31\x30',
+                '\x62\x61\x30\x38\x62\x65\x37\x36\x37\x65\x31\x61\x35\x65\x38\x39\x37\x37\x37\x65\x36\x38\x61\x36\x39\x39\x38\x61\x38\x63\x31\x39',
+                '\x68\x74\x74\x70\x73://\x6b\x61\x72\x6c\x66\x61\x7a\x72\x65\x65\x6e.\x67\x69\x74\x68\x75\x62.\x69\x6f/\x70\x6c\x61\x79\x6c\x69\x73\x74/\x73\x6f\x6f\x6b\x61.\x6d\x79/\x65\x78\x73\x74\x72\x6f.\x68\x74\x6d\x6c'
+            ];
+            
+            const manifestUri = data[0];
+            const clearKeys = {}; clearKeys[data[1]] = data[2];
+            
+            document.getElementById("backBtn").onclick = function() {
+                window.location.href = data[3];
+            };
 
-        async function init() {
-            const video = document.getElementById('video');
-            const ui = video['ui'];
-            const controls = ui.getControls();
-            const player = controls.getPlayer();
-            window.player = player;
-            window.ui = ui;
+            async function init() {
+                const video = document.getElementById('video');
+                const ui = video['ui'];
+                const controls = ui.getControls();
+                const player = controls.getPlayer();
+                window.player = player;
+                window.ui = ui;
 
-            // Tambah request filter untuk menetapkan header User-Agent
-            player.getNetworkingEngine().registerRequestFilter((type, request) => {
-                request.headers['User-Agent'] = customUserAgent;
-            });
+                player.configure({ drm: { "clearKeys": clearKeys } });
 
-            player.configure({
-                drm: {
-                    "clearKeys": {
-                        '1ece3ecb41699e855c6dc9a283908210': 'ba08be767e1a5e89777e68a6998a8c19'
-                    }
+                player.addEventListener('error', onPlayerErrorEvent);
+                controls.addEventListener('error', onUIErrorEvent);
+
+                try {
+                    await player.load(manifestUri);
+                    console.log('The video has now been loaded!');
+                } catch (error) {
+                    onPlayerError(error);
                 }
-            });
-
-            player.addEventListener('error', onPlayerErrorEvent);
-            controls.addEventListener('error', onUIErrorEvent);
-
-            try {
-                await player.load(manifestUri);
-                console.log('The video has now been loaded!');
-            } catch (error) {
-                onPlayerError(error);
             }
-        }
 
-        function onPlayerErrorEvent(errorEvent) {
-            onPlayerError(errorEvent.detail);
-        }
+            function onPlayerErrorEvent(errorEvent) { onPlayerError(errorEvent.detail); }
+            function onPlayerError(error) { console.error('Error code', error.code, 'object', error); }
+            function onUIErrorEvent(errorEvent) { onPlayerError(errorEvent.detail); }
+            function initFailed(errorEvent) { console.error('Unable to load the UI library!'); }
 
-        function onPlayerError(error) {
-            console.error('Error code', error.code, 'object', error);
-        }
-
-        function onUIErrorEvent(errorEvent) {
-            onPlayerError(errorEvent.detail);
-        }
-
-        function initFailed(errorEvent) {
-            console.error('Unable to load the UI library!');
-        }
-
-        document.addEventListener('shaka-ui-loaded', init);
-        document.addEventListener('shaka-ui-load-failed', initFailed);
+            document.addEventListener('shaka-ui-loaded', init);
+            document.addEventListener('shaka-ui-load-failed', initFailed);
+        })();
     </script>
 </body>
 
