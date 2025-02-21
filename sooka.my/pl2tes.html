@@ -72,12 +72,12 @@
                 var reloadBtn = document.getElementById("reloadBtn");
 
                 if (Hls.isSupported()) {
-                    var hls = new Hls({
-                        xhrSetup: function (xhr) {
-                            xhr.setRequestHeader("User-Agent", atob(userAgentHeader));
-                            xhr.setRequestHeader("Referer", atob(referrerHeader));
-                        }
-                    });
+    var hls = new Hls({
+        xhrSetup: function (xhr, url) {
+            xhr.setRequestHeader("User-Agent", "Mozilla/5.0 (Linux; Android 10; Mobile) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.72 Mobile Safari/537.36");
+            xhr.setRequestHeader("Referer", "Q2hlZXJWaXNpb25fVFYrX0xpVmVfODg4XzY2Nl84ODg4"); // Tukar jika perlu
+        }
+    });
 
                     hls.loadSource(encodedURL);
                     hls.attachMedia(video);
