@@ -75,33 +75,30 @@
 
             console.log("Shaka Player disokong, meneruskan...");
 
-            const supportedDRMs = await shaka.Player.probeSupport();
-            if (!supportedDRMs.drm['org.w3.clearkey']) {
-                alert("Pelayar ini tidak menyokong ClearKey DRM. Sila guna Google Chrome.");
-                return;
-            }
-
-            console.log("ClearKey DRM disokong, meneruskan...");
-
-            const encodedManifest = [
-                "\x68\x74\x74\x70\x73", "\x3a\x2f\x2f\x6c\x69\x6e\x65\x61\x72\x6a\x69\x74\x70\x2d\x70\x6c\x61\x79\x62\x61\x63\x6b",
-                "\x2e\x61\x73\x74\x72\x6f\x2e\x63\x6f\x6d\x2e\x6d\x79\x2f\x64\x61\x73\x68\x2d\x77\x76\x2f\x6c\x69\x6e\x65\x61\x72",
-                "\x2f\x35\x31\x30\x38\x2f\x64\x65\x66\x61\x75\x6c\x74\x5f\x70\x72\x69\x6d\x61\x72\x79\x2e\x6d\x70\x64"
-            ];
-            const manifestUri = encodedManifest.join("");
-
-            const encodedLicenseKey = {
-                "\x6b\x65\x79\x73": {
-                    "\x31\x65\x63\x65\x33\x65\x63\x62\x34\x31\x36\x39\x39\x65\x38\x35\x35\x63\x36\x64\x63\x39\x61\x32\x38\x33\x39\x30\x38\x32\x31\x30": 
-                    "\x62\x61\x30\x38\x62\x65\x37\x36\x37\x65\x31\x61\x35\x65\x38\x39\x37\x37\x37\x65\x36\x38\x61\x36\x39\x39\x38\x61\x38\x63\x31\x39"
-                }
-            };
-
             const video = document.getElementById('video');
             const player = new shaka.Player(video);
+            const config = {
+                streaming: {
+                    bufferingGoal: 30,
+                },
+                abr: {
+                    enabled: true
+                }
+            };
+            player.configure(config);
+            player.getNetworkingEngine().registerRequestFilter((type, request) => {
+                if (type === shaka.net.NetworkingEngine.RequestType.MANIFEST ||
+                    type === shaka.net.NetworkingEngine.RequestType.SEGMENT) {
+                    request.headers['User-Agent'] = "Mozilla/5.0 (Linux; Android 12; Pixel 3a XL Build/SP2A.220505.008; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/114.0.5715.0 Mobile Safari/537.36";
+                }
+            });
 
             try {
-                await player.load(manifestUri);
+                const manifestArray = [
+                    "\x68\x74\x74\x70\x73", "\x3a\x2f\x2f\x6c\x69\x6e\x65\x61\x72\x6a\x69\x74\x70\x2d\x70\x6c\x61\x79\x62\x61\x63\x6b\x2e\x61\x73\x74\x72\x6f\x2e\x63\x6f\x6d\x2e\x6d\x79",
+                    "\x2f\x64\x61\x73\x68\x2d\x77\x76\x2f\x6c\x69\x6e\x65\x61\x72\x2f\x35\x31\x30\x38\x2f\x64\x65\x66\x61\x75\x6c\x74\x5f\x70\x72\x69\x6d\x61\x72\x79\x2e\x6d\x70\x64"
+                ];
+                await player.load(manifestArray.join(""));
                 console.log('Penstriman dimuat dengan jayanya!');
             } catch (error) {
                 console.error('Ralat semasa memuatkan penstriman:', error);
