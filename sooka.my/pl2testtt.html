@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Astro Premier League 2</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        body {
+            text-align: center;
+            background: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #videoContainer {
+            position: relative;
+            width: 90vw;
+            max-width: 900px;
+            aspect-ratio: 16/9;
+            margin: auto;
+            background-color: black;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #f00;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Astro Premier League 2</h2>
+    <img src="https://i.ibb.co/7YwbB5t/Astro-Premier-League-2-2024.png" width="150" alt="Logo">
+    <div id="videoContainer">
+        <video id="videoPlayer" controls autoplay playsinline></video>
+    </div>
+    <div class="button-container">
+        <button id="fullscreenBtn">Fullscreen</button>
+        <button id="reloadBtn">Reload</button>
+    </div>
+
+    <script>
+        (function() {
+            var encodedURL = "\x68\x74\x74\x70\x73\x3A\x2F\x2F\x63\x76\x6E\x65\x77\x69\x74\x76\x6C\x69\x76\x65\x2D\x63\x64\x6E\x2E\x73\x6B\x79\x69\x70\x74\x76\x2E\x65\x75\x2E\x6F\x72\x67\x2F\x73\x74\x72\x65\x61\x6D\x2F\x73\x6D\x74\x6D\x79\x6E\x73\x67\x2F\x61\x73\x73\x70\x32\x73\x32\x2F\x66\x6D\x70\x34\x5F\x76\x69\x64\x65\x6F\x2E\x6D\x33\x75\x38\x3F\x75\x3D\x63\x76\x61\x70\x70\x75\x73\x65\x72\x26\x70\x3D\x30\x66\x35\x37\x33\x65\x36\x38\x65\x30\x30\x64\x66\x66\x38\x64\x63\x61\x30\x65\x61\x36\x66\x62\x32\x65\x37\x38\x63\x31\x62\x39\x62\x34\x39\x30\x61\x36\x34\x65\x38\x64\x31\x30\x33\x31\x31\x32\x39\x36\x35\x34\x30\x34\x35\x35\x38\x66\x63\x30\x30\x61\x61\x38";
+
+            var userAgentHeader = "\x51\x32\x68\x6C\x5A\x58\x4A\x6C\x63\x32\x39\x76\x56\x46\x59\x72\x58\x30\x78\x66\x4C\x6B\x70\x58\x62\x47\x70\x6A\x59\x58\x6C\x76\x64\x53\x34\x34\x4F\x44\x67\x67\x3D";
+            var referrerHeader = "\x51\x32\x68\x6C\x5A\x58\x4A\x6C\x63\x32\x39\x76\x56\x46\x59\x72\x58\x30\x78\x66\x4C\x6B\x70\x58\x62\x47\x70\x6A\x59\x58\x6C\x76\x64\x53\x34\x34\x4F\x44\x67\x67\x3D";
+
+            document.addEventListener("DOMContentLoaded", function () {
+                var video = document.getElementById("videoPlayer");
+                var fullscreenBtn = document.getElementById("fullscreenBtn");
+                var reloadBtn = document.getElementById("reloadBtn");
+
+                if (Hls.isSupported()) {
+                    var hls = new Hls({
+                        xhrSetup: function (xhr) {
+                            xhr.setRequestHeader("User-Agent", atob(userAgentHeader));
+                            xhr.setRequestHeader("Referer", atob(referrerHeader));
+                        }
+                    });
+
+                    hls.loadSource(encodedURL);
+                    hls.attachMedia(video);
+                    hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                        video.play();
+                    });
+
+                    hls.on(Hls.Events.ERROR, function (event, data) {
+                        if (data.fatal) {
+                            console.warn("HLS error detected, trying fallback...");
+                            video.src = encodedURL;
+                            video.play();
+                        }
+                    });
+                } else {
+                    video.src = encodedURL;
+                    video.addEventListener("loadedmetadata", function () {
+                        video.play();
+                    });
+                }
+
+                fullscreenBtn.addEventListener("click", function() {
+                    if (!document.fullscreenElement) {
+                        if (video.requestFullscreen) {
+                            video.requestFullscreen();
+                        } else if (video.mozRequestFullScreen) {
+                            video.mozRequestFullScreen();
+                        } else if (video.webkitRequestFullscreen) {
+                            video.webkitRequestFullscreen();
+                        } else if (video.msRequestFullscreen) {
+                            video.msRequestFullscreen();
+                        }
+                    } else {
+                        if (document.exitFullscreen) {
+                            document.exitFullscreen();
+                        } else if (document.mozCancelFullScreen) {
+                            document.mozCancelFullScreen();
+                        } else if (document.webkitExitFullscreen) {
+                            document.webkitExitFullscreen();
+                        } else if (document.msExitFullscreen) {
+                            document.msExitFullscreen();
+                        }
+                    }
+                });
+
+                reloadBtn.addEventListener("click", function() {
+                    location.reload();
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
