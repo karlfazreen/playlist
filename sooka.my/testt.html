@@ -14,42 +14,75 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background-color: #000;
-            color: #fff;
-            font-family: Arial, sans-serif;
+            background: url('https://i.ibb.co/93DM9cS/1200.png') no-repeat center center/cover;
+            position: relative;
+        }
+        .title {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: red;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.8);
+            animation: floating 3s infinite ease-in-out;
+        }
+        @keyframes floating {
+            0% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, -10px); }
+            100% { transform: translate(-50%, 0); }
         }
         video {
             width: 100%;
             max-width: 800px;
             height: auto;
         }
-        .controls {
-            margin-top: 10px;
-            display: flex;
-            gap: 10px;
-        }
-        select {
-            padding: 5px;
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
             font-size: 16px;
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .back-button:hover {
+            background-color: #e64a19;
         }
     </style>
 </head>
 <body>
+    <div class="title">Premier League 3</div>
     <video id="video" controls autoplay></video>
-    
-    <div class="controls">
-        <label for="resolution">Resolusi:</label>
-        <select id="resolution">
-            <option value="auto">Auto</option>
-        </select>
-
-        <label for="audio">Audio:</label>
-        <select id="audio"></select>
-    </div>
+    <button class="back-button" onclick="redirectToHome()">Back to Home</button>
 
     <script>
+        function redirectToHome() {
+            const encodedUrl = [
+                "\x68\x74\x74\x70\x73", "\x3a\x2f\x2f\x6b\x61\x72\x6c\x66\x61\x7a\x72\x65\x65\x6e\x2e\x67\x69\x74\x68\x75\x62\x2e\x69\x6f",
+                "\x2f\x70\x6c\x61\x79\x6c\x69\x73\x74\x2f\x73\x6f\x6f\x6b\x61\x2e\x6d\x79\x2f\x65\x78\x73\x74\x72\x6f\x2e\x68\x74\x6d\x6c"
+            ];
+            window.location.href = encodedUrl.join("");
+        }
+
         async function initPlayer() {
-            // URL Manifest (Obfuscated)
+            if (!shaka.Player.isBrowserSupported()) {
+                alert("Pelayar anda tidak menyokong Shaka Player!");
+                return;
+            }
+
+            console.log("Shaka Player disokong, meneruskan...");
+
+            const supportedDRMs = await shaka.Player.probeSupport();
+            if (!supportedDRMs.drm['org.w3.clearkey']) {
+                alert("Pelayar ini tidak menyokong ClearKey DRM. Sila guna Google Chrome.");
+                return;
+            }
+
+            console.log("ClearKey DRM disokong, meneruskan...");
+
             const encodedManifest = [
                 "\x68\x74\x74\x70\x73", "\x3a\x2f\x2f\x6c\x69\x6e\x65\x61\x72\x6a\x69\x74\x70\x2d\x70\x6c\x61\x79\x62\x61\x63\x6b",
                 "\x2e\x61\x73\x74\x72\x6f\x2e\x63\x6f\x6d\x2e\x6d\x79\x2f\x64\x61\x73\x68\x2d\x77\x76\x2f\x6c\x69\x6e\x65\x61\x72",
@@ -57,7 +90,6 @@
             ];
             const manifestUri = encodedManifest.join("");
 
-            // License Key (Obfuscated)
             const encodedLicenseKey = {
                 "\x6b\x65\x79\x73": {
                     "\x31\x65\x63\x65\x33\x65\x63\x62\x34\x31\x36\x39\x39\x65\x38\x35\x35\x63\x36\x64\x63\x39\x61\x32\x38\x33\x39\x30\x38\x32\x31\x30": 
@@ -67,106 +99,12 @@
 
             const video = document.getElementById('video');
             const player = new shaka.Player(video);
-            const resolutionSelector = document.getElementById('resolution');
-            const audioSelector = document.getElementById('audio');
-
-            // Tetapkan User-Agent
-            const networkingEngine = player.getNetworkingEngine();
-            networkingEngine.registerRequestFilter((type, request) => {
-                if (type === shaka.net.NetworkingEngine.RequestType.MANIFEST ||
-                    type === shaka.net.NetworkingEngine.RequestType.SEGMENT) {
-                    request.headers['User-Agent'] = "Mozilla/5.0 (Linux; Android 12; Pixel 3a XL Build/SP2A.220505.008; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/114.0.5715.0 Mobile Safari/537.36";
-                }
-            });
-
-            // Pasang ClearKey DRM
-            player.configure({
-                drm: {
-                    clearKeys: encodedLicenseKey["\x6b\x65\x79\x73"]
-                }
-            });
 
             try {
                 await player.load(manifestUri);
                 console.log('Penstriman dimuat dengan jayanya!');
-
-                // Dapatkan senarai resolusi dan audio yang tersedia
-                updateResolutionOptions(player);
-                updateAudioOptions(player);
             } catch (error) {
                 console.error('Ralat semasa memuatkan penstriman:', error);
-            }
-
-            // Event listener untuk menukar resolusi
-            resolutionSelector.addEventListener("change", () => {
-                const selectedHeight = resolutionSelector.value;
-                if (selectedHeight === "auto") {
-                    player.configure({ abr: { enabled: true } });
-                } else {
-                    player.configure({ abr: { enabled: false } });
-                    setResolution(player, parseInt(selectedHeight));
-                }
-            });
-
-            // Event listener untuk menukar audio
-            audioSelector.addEventListener("change", () => {
-                const selectedLang = audioSelector.value;
-                setAudioTrack(player, selectedLang);
-            });
-        }
-
-        function updateResolutionOptions(player) {
-            const resolutionSelector = document.getElementById('resolution');
-            const tracks = player.getVariantTracks();
-
-            // Kosongkan dropdown sebelum tambah resolusi baru
-            resolutionSelector.innerHTML = '<option value="auto">Auto</option>';
-
-            // Tambahkan resolusi ke dalam dropdown
-            tracks.forEach(track => {
-                const option = document.createElement("option");
-                option.value = track.height;
-                option.textContent = `${track.height}p (${track.bandwidth / 1000} kbps)`;
-                resolutionSelector.appendChild(option);
-            });
-        }
-
-        function setResolution(player, height) {
-            const tracks = player.getVariantTracks();
-            const selectedTrack = tracks.find(track => track.height === height);
-
-            if (selectedTrack) {
-                player.selectVariantTrack(selectedTrack, true);
-                console.log(`Resolusi ditukar ke: ${height}p`);
-            }
-        }
-
-        function updateAudioOptions(player) {
-            const audioSelector = document.getElementById('audio');
-            const audioTracks = player.getVariantTracks()
-                .filter(track => track.audioBandwidth); // Ambil trek audio sahaja
-
-            // Kosongkan pilihan audio sebelum tambah
-            audioSelector.innerHTML = '';
-
-            // Cari bahasa unik
-            const uniqueLanguages = [...new Set(audioTracks.map(track => track.language))];
-
-            uniqueLanguages.forEach(lang => {
-                const option = document.createElement("option");
-                option.value = lang;
-                option.textContent = lang.toUpperCase(); // Tunjuk sebagai huruf besar (contoh: "EN", "MY")
-                audioSelector.appendChild(option);
-            });
-        }
-
-        function setAudioTrack(player, language) {
-            const audioTracks = player.getVariantTracks()
-                .filter(track => track.language === language);
-
-            if (audioTracks.length > 0) {
-                player.selectVariantTrack(audioTracks[0], true);
-                console.log(`Trek audio ditukar ke: ${language}`);
             }
         }
 
