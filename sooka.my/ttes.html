@@ -26,16 +26,15 @@
             window.player = player;
             window.ui = ui;
 
+            // Tambah request filter untuk menetapkan header User-Agent
+            player.getNetworkingEngine().registerRequestFilter((type, request) => {
+                request.headers['User-Agent'] = customUserAgent;
+            });
+
             player.configure({
                 drm: {
                     "clearKeys": {
                         '3225f837a4b95d6e46683c53818c1710': '3e1b57c06699c7e408e7aa49ff57d4f4'
-                    }
-                },
-                networkingEngine: {
-                    makeRequest: function(requestType, request) {
-                        request.headers['User-Agent'] = customUserAgent;
-                        return request;
                     }
                 }
             });
@@ -45,7 +44,7 @@
 
             try {
                 await player.load(manifestUri);
-                console.log('The video has now been loaded with custom User-Agent!');
+                console.log('The video has now been loaded!');
             } catch (error) {
                 onPlayerError(error);
             }
