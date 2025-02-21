@@ -120,60 +120,28 @@
                 var homeBtn = document.getElementById("homeBtn");
 
                 if (Hls.isSupported()) {
-    var hls = new Hls({
-        xhrSetup: function (xhr, url) {
-            xhr.setRequestHeader("User-Agent", "Q2hlZXJWaXNpb25fVFYrX0xpVmVfLkppYXlvdS44ODg=");
-            xhr.setRequestHeader("Referer", "Q2hlZXJWaXNpb25fVFYrX0xpVmVfODg4XzY2Nl84ODg4");
-        }
-    });
-
-    hls.loadSource(_0xencodeUrl());
-    hls.attachMedia(video);
-    hls.on(Hls.Events.MANIFEST_PARSED, function () {
-        video.play();
-    });
-
-    // Fallback jika Hls.js error
-    hls.on(Hls.Events.ERROR, function (event, data) {
-        if (data.fatal) {
-            console.warn("HLS error detected, switching to fallback...");
-            video.src = _0xencodeUrl();
-            video.play();
-        }
-    });
-} else {
-    video.src = _0xencodeUrl();
-    video.addEventListener("loadedmetadata", function () {
-        video.play();
-    });
-}
-
+                    var hls = new Hls();
+                    hls.loadSource(_0xencodeUrl());
+                    hls.attachMedia(video);
+                    hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                        video.play();
+                    });
+                } else {
+                    video.src = _0xencodeUrl();
+                    video.addEventListener("loadedmetadata", function () {
+                        video.play();
+                    });
                 }
 
                 fullscreenBtn.addEventListener("click", function() {
-    if (!document.fullscreenElement) {
-    if (video.requestFullscreen) {
-        video.requestFullscreen();
-    } else if (video.mozRequestFullScreen) {
-        video.mozRequestFullScreen();
-    } else if (video.webkitRequestFullscreen) {
-        video.webkitRequestFullscreen();
-    } else if (video.msRequestFullscreen) {
-        video.msRequestFullscreen();
-    }
-} else {
-    if (document.exitFullscreen) {
-        document.exitFullscreen();
-    } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-    }
-}
+                    if (!document.fullscreenElement) {
+                        video.requestFullscreen();
+                    } else {
+                        document.exitFullscreen();
+                    }
+                });
 
-              homeBtn.addEventListener("click", function() {
+               homeBtn.addEventListener("click", function() {
                     var _0xhome = ["\x68\x74\x74\x70\x73\x3A\x2F\x2F\x6B\x61\x72\x6C\x66\x61\x7A\x72\x65\x65\x6E\x2E\x67\x69\x74\x68\x75\x62\x2E\x69\x6F\x2F\x70\x6C\x61\x79\x6C\x69\x73\x74\x2F\x73\x6F\x6F\x6B\x61\x2E\x6D\x79\x2F\x65\x78\x73\x74\x72\x6F\x2E\x68\x74\x6D\x6C"];
                     window.location.href = _0xhome[0];
                 }); 
@@ -181,4 +149,4 @@
         })();
     </script>
 </body>
-</html> 
+</html>
