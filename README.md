@@ -1,23 +1,49 @@
-</html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
-<meta name='google-adsense-platform-domain' content='blogspot.com'/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feel Free to Use It</title>
+    <style>
+        body {
+            background: url('https://media.giphy.com/media/l0HlNaQ6gWfllcjDO/giphy.gif') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Overlay untuk buat background jadi transparent 30% */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* 70% hitam, jadi GIF nampak 30% */
+        }
+
+        h1 {
+            font-size: 80px; /* Tulisan besar */
+            font-weight: bold;
+            color: #00ff00;
+            text-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 80px #00ff00;
+            position: relative; /* Supaya teks tak kena overlay */
+            animation: floating 3s infinite ease-in-out;
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+            100% { transform: translateY(0); }
+        }
+    </style>
 </head>
 <body>
-<p><img border="0" src="https://telegra.ph/file/952aab1b2edb1a76eeb28.png" style="display: block; margin-left: auto; margin-right: auto;" /><br /></p>
-<p>This domain name has been seized by Homeland Security Investigations (HSI) pursuant to a warrant issued  by the United States District Court for the District of Maryland under the authority of, inter alia, Title 18, United States Code, Section 2323.<br /></p>
-<p>It is unlawful to reproduce or distribute copyrighted material including movies, music, software, or games without authorization.<br /></p>
-<p>Individuals who do so risk criminal prosecution under Title 18, United states code, Section 2319. First time offenders convicted of a criminal felony copyright violation face up to five years in prison, fines, restitution, and forfeiture.</p>
+    <h1>FEEL FREE TO USE IT</h1>
 </body>
 </html>
-
-</html>
-<head>
-    
-</head>
-<body>
-    <section class="login">
-        <div class="container">
-      <center><img width="200px" 
-    src="https://marginfull.github.io/logo/amifatcat-cute.gif"></center>  
