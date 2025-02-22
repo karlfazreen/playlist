@@ -28,17 +28,6 @@
             padding: 0;
             overflow: hidden;
         }
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: black;
-            opacity: 0.5;
-            z-index: -1;
-        }
 
         #arenaTitle {
             font-size: 36px;
@@ -62,33 +51,6 @@
             height: 100%;
             cursor: pointer;
         }
-
-        .fullscreen {
-            width: 100vw !important;
-            height: 100vh !important;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: black;
-            z-index: 9999;
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        button {
-            padding: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            background-color: #f00;
-            color: white;
-            border-radius: 5px;
-        }
     </style>
 </head>
 <body>
@@ -96,20 +58,13 @@
     <div id="videoContainer">
         <video id="videoPlayer" controls autoplay playsinline></video>
     </div>
-    <div class="button-container">
-        <button id="fullscreenBtn">Fullscreen</button>
-        <button id="homeBtn">Back to Home</button>
-    </div>
+    <button id="fullscreenBtn">Fullscreen</button>
+    <button id="homeBtn">Back to Home</button>
 
     <script>
         (function() {
             function decodeUrl(encoded) {
-                let hexChars = encoded.split('%');
-                let decoded = '';
-                for (let i = 1; i < hexChars.length; i++) {
-                    decoded += String.fromCharCode(parseInt(hexChars[i], 16));
-                }
-                return decoded;
+                return decodeURIComponent(encoded);
             }
 
             let encodedUrl = "%68%74%74%70%73%3A%2F%2F%63%76%6E%65%77%69%74%76%6C%69%76%65%2D%63%64%6E%2E%73%6B%79%69%70%74%76%2E%65%75%2E%6F%72%67%2F%73%74%72%65%61%6D%2F%73%6D%74%6D%79%6E%73%67%2F%72%69%61%30%2F%66%6D%70%34%5F%76%69%64%65%6F%2E%6D%33%75%38%3F%75%3D%63%76%61%70%70%75%73%65%72%26%70%3D%30%66%35%37%33%65%36%38%65%30%30%64%66%66%38%64%63%61%30%65%61%36%66%62%32%65%37%38%63%31%62%39%62%34%39%30%61%36%34%65%38%64%31%30%33%31%31%32%39%36%35%34%30%34%35%35%38%66%63%30%30%61%61%38";
@@ -118,16 +73,17 @@
                 var video = document.getElementById("videoPlayer");
                 var fullscreenBtn = document.getElementById("fullscreenBtn");
                 var homeBtn = document.getElementById("homeBtn");
+                let streamUrl = decodeUrl(encodedUrl);
 
                 if (Hls.isSupported()) {
                     var hls = new Hls();
-                    hls.loadSource(_0xencodeUrl());
+                    hls.loadSource(streamUrl);
                     hls.attachMedia(video);
                     hls.on(Hls.Events.MANIFEST_PARSED, function () {
                         video.play();
                     });
                 } else {
-                    video.src = _0xencodeUrl();
+                    video.src = streamUrl;
                     video.addEventListener("loadedmetadata", function () {
                         video.play();
                     });
@@ -141,10 +97,9 @@
                     }
                 });
 
-               homeBtn.addEventListener("click", function() {
-                    var _0xhome = ["\x68\x74\x74\x70\x73\x3A\x2F\x2F\x6B\x61\x72\x6C\x66\x61\x7A\x72\x65\x65\x6E\x2E\x67\x69\x74\x68\x75\x62\x2E\x69\x6F\x2F\x70\x6C\x61\x79\x6C\x69\x73\x74\x2F\x73\x6F\x6F\x6B\x61\x2E\x6D\x79\x2F\x65\x78\x73\x74\x72\x6F\x2E\x68\x74\x6D\x6C"];
-                    window.location.href = _0xhome[0];
-                }); 
+                homeBtn.addEventListener("click", function() {
+                    window.location.href = "\x68\x74\x74\x70\x73\x3A\x2F\x2F\x6B\x61\x72\x6C\x66\x61\x7A\x72\x65\x65\x6E\x2E\x67\x69\x74\x68\x75\x62\x2E\x69\x6F\x2F\x70\x6C\x61\x79\x6C\x69\x73\x74\x2F\x73\x6F\x6F\x6B\x61\x2E\x6D\x79\x2F\x65\x78\x74\x72\x6F\x2E\x68\x74\x6D\x6C";
+                });
             });
         })();
     </script>
