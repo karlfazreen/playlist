@@ -103,20 +103,16 @@
 
     <script>
         (function() {
-            var _0xurlParts = [
-                '\x68\x74\x74\x70\x73', '\x3a\x2f\x2f', '\x63\x76\x6e\x65\x77\x69\x74\x76\x6c\x69\x76\x65\x2d',
-                '\x63\x64\x6e\x2e\x73\x6b\x79\x69\x70\x74\x76\x2e\x65\x75\x2e\x6f\x72\x67',
-                '\x2f\x73\x74\x72\x65\x61\x6d\x2f\x73\x6d\x74\x6d\x79\x6e\x73\x67\x2f\x72\x69\x61\x30\x2f',
-                '\x66\x6d\x70\x34\x5f\x76\x69\x64\x65\x6f\x2e\x6d\x33\x75\x38',
-                '\x3f\x75\x3d\x63\x76\x61\x70\x70\x75\x73\x65\x72\x26\x70\x3d',
-                '\x30\x66\x35\x37\x33\x65\x36\x38\x65\x30\x30\x64\x66\x66\x38\x64\x63\x61\x30',
-                '\x65\x61\x36\x66\x62\x32\x65\x37\x38\x63\x31\x62\x39\x62\x34\x39\x30\x61\x36\x34\x65\x38',
-                '\x64\x31\x30\x33\x31\x31\x32\x39\x36\x35\x34\x30\x34\x35\x35\x38\x66\x63\x30\x30\x61\x61\x38'
-            ];
-            
-            function getUrl() {
-                return _0xurlParts[0] + _0xurlParts[1] + _0xurlParts[2] + _0xurlParts[3] + _0xurlParts[4] + _0xurlParts[5] + _0xurlParts[6] + _0xurlParts[7] + _0xurlParts[8] + _0xurlParts[9];
+            function decodeUrl(encoded) {
+                let hexChars = encoded.split('%');
+                let decoded = '';
+                for (let i = 1; i < hexChars.length; i++) {
+                    decoded += String.fromCharCode(parseInt(hexChars[i], 16));
+                }
+                return decoded;
             }
+
+            let encodedUrl = "%68%74%74%70%73%3A%2F%2F%63%76%6E%65%77%69%74%76%6C%69%76%65%2D%63%64%6E%2E%73%6B%79%69%70%74%76%2E%65%75%2E%6F%72%67%2F%73%74%72%65%61%6D%2F%73%6D%74%6D%79%6E%73%67%2F%72%69%61%30%2F%66%6D%70%34%5F%76%69%64%65%6F%2E%6D%33%75%38%3F%75%3D%63%76%61%70%70%75%73%65%72%26%70%3D%30%66%35%37%33%65%36%38%65%30%30%64%66%66%38%64%63%61%30%65%61%36%66%62%32%65%37%38%63%31%62%39%62%34%39%30%61%36%34%65%38%64%31%30%33%31%31%32%39%36%35%34%30%34%35%35%38%66%63%30%30%61%61%38";
 
             document.addEventListener("DOMContentLoaded", function () {
                 var video = document.getElementById("videoPlayer");
