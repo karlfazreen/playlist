@@ -13,7 +13,9 @@ cloudseventv by Amirah
 This tool is suitable for use on Android and iOS devices.
 
 It can check at least 20 URLs simultaneously.
+https://karlfazreen.github.io/playlist/index/iptv_checker.html
 
+HTML Code
 ```javascript
 <!DOCTYPE html>
 <html lang="en">
