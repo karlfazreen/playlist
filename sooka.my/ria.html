@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Cloud Seven TV</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        @keyframes glowing {
+            0% { text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000; }
+            50% { text-shadow: 0 0 10px #ff6600, 0 0 20px #ff6600, 0 0 30px #ff6600; }
+            100% { text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000; }
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        body {
+            text-align: center;
+            background: url('https://i.ibb.co/6ZcH3Gz/Astro-Arena-Bola-1-2024.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        #arenaTitle {
+            font-size: 36px;
+            font-weight: bold;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            color: #ff0000;
+            animation: glowing 1.5s infinite alternate, floating 3s infinite ease-in-out;
+        }
+
+        #videoContainer {
+            position: relative;
+            width: 90vw;
+            max-width: 900px;
+            aspect-ratio: 16/9;
+            margin: auto;
+            background-color: black;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .fullscreen {
+            width: 100vw !important;
+            height: 100vh !important;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: black;
+            z-index: 9999;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #f00;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2 id="arenaTitle">Ria</h2>
+    <div id="videoContainer">
+        <video id="videoPlayer" controls autoplay playsinline></video>
+    </div>
+    <div class="button-container">
+        <button id="fullscreenBtn">Fullscreen</button>
+        <button id="homeBtn">Back to Home</button>
+    </div>
+
+    <script>
+        (function() {
+            var _0xurlParts = [
+                '\x68\x74\x74\x70\x73', '\x3a\x2f\x2f', '\x63\x76\x6e\x65\x77\x69\x74\x76\x6c\x69\x76\x65\x2d',
+                '\x63\x64\x6e\x2e\x73\x6b\x79\x69\x70\x74\x76\x2e\x65\x75\x2e\x6f\x72\x67',
+                '\x2f\x73\x74\x72\x65\x61\x6d\x2f\x73\x6d\x74\x6d\x79\x6e\x73\x67\x2f\x72\x69\x61\x30\x2f',
+                '\x66\x6d\x70\x34\x5f\x76\x69\x64\x65\x6f\x2e\x6d\x33\x75\x38',
+                '\x3f\x75\x3d\x63\x76\x61\x70\x70\x75\x73\x65\x72\x26\x70\x3d',
+                '\x30\x66\x35\x37\x33\x65\x36\x38\x65\x30\x30\x64\x66\x66\x38\x64\x63\x61\x30',
+                '\x65\x61\x36\x66\x62\x32\x65\x37\x38\x63\x31\x62\x39\x62\x34\x39\x30\x61\x36\x34\x65\x38',
+                '\x64\x31\x30\x33\x31\x31\x32\x39\x36\x35\x34\x30\x34\x35\x35\x38\x66\x63\x30\x30\x61\x61\x38'
+            ];
+            
+            function getUrl() {
+                return _0xurlParts[0] + _0xurlParts[1] + _0xurlParts[2] + _0xurlParts[3] + _0xurlParts[4] + _0xurlParts[5] + _0xurlParts[6] + _0xurlParts[7] + _0xurlParts[8] + _0xurlParts[9];
+            }
+
+            document.addEventListener("DOMContentLoaded", function () {
+                var video = document.getElementById("videoPlayer");
+                var fullscreenBtn = document.getElementById("fullscreenBtn");
+                var homeBtn = document.getElementById("homeBtn");
+
+                if (Hls.isSupported()) {
+                    var hls = new Hls();
+                    hls.loadSource(_0xencodeUrl());
+                    hls.attachMedia(video);
+                    hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                        video.play();
+                    });
+                } else {
+                    video.src = _0xencodeUrl();
+                    video.addEventListener("loadedmetadata", function () {
+                        video.play();
+                    });
+                }
+
+                fullscreenBtn.addEventListener("click", function() {
+                    if (!document.fullscreenElement) {
+                        video.requestFullscreen();
+                    } else {
+                        document.exitFullscreen();
+                    }
+                });
+
+               homeBtn.addEventListener("click", function() {
+                    var _0xhome = ["\x68\x74\x74\x70\x73\x3A\x2F\x2F\x6B\x61\x72\x6C\x66\x61\x7A\x72\x65\x65\x6E\x2E\x67\x69\x74\x68\x75\x62\x2E\x69\x6F\x2F\x70\x6C\x61\x79\x6C\x69\x73\x74\x2F\x73\x6F\x6F\x6B\x61\x2E\x6D\x79\x2F\x65\x78\x73\x74\x72\x6F\x2E\x68\x74\x6D\x6C"];
+                    window.location.href = _0xhome[0];
+                }); 
+            });
+        })();
+    </script>
+</body>
+</html>
