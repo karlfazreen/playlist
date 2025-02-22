@@ -12,7 +12,7 @@ cloudseventv by Amirah
 ## HLS & DASH Stream checker HTML Format
 This tool is suitable for use on Android and iOS devices.
 
-It can check at least 8 URLs simultaneously.
+It can check at least 20 URLs simultaneously.
 
 ```javascript
 <!DOCTYPE html>
