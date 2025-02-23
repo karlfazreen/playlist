@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Get Token</title>
+</head>
+<body>
+    <h1>Token System</h1>
+
+    <script>
+    async function getToken() {
+        let token = localStorage.getItem("token");
+        let expiry = localStorage.getItem("token_expiry");
+
+        if (!token || Date.now() > expiry) {
+            let response = await fetch("https://api.example.com/oauth/token", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams({
+                    client_id: "abc123",
+                    client_secret: "xyz456",
+                    refresh_token: "old_refresh_token",
+                    grant_type: "refresh_token"
+                })
+            });
+            let data = await response.json();
+            
+            localStorage.setItem("token", data.access_token);
+            localStorage.setItem("token_expiry", Date.now() + (data.expires_in * 1000));
+            return data.access_token;
+        }
+        return token;
+    }
+
+    // Auto-refresh setiap 5 minit
+    setInterval(getToken, 300000);
+
+    // Panggil function masa page load
+    getToken();
+    </script>
+</body>
+</html>
