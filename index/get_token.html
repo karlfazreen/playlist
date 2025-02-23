@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto Get Token</title>
+    <title>Get Token</title>
 </head>
 <body>
-    <h1>Token System</h1>
+    <h1>Auto Get Token (WebView)</h1>
+    <p>Tekan butang di bawah untuk ambil token.</p>
+    <button onclick="getToken()">Dapatkan Token</button>
+    <p><strong>Token Sekarang:</strong></p>
+    <p id="tokenDisplay">Belum ada token.</p>
 
     <script>
     async function getToken() {
@@ -14,23 +18,48 @@
         let expiry = localStorage.getItem("token_expiry");
 
         if (!token || Date.now() > expiry) {
-            let response = await fetch("https://api.example.com/oauth/token", {
-                method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams({
-                    client_id: "abc123",
-                    client_secret: "xyz456",
-                    refresh_token: "old_refresh_token",
-                    grant_type: "refresh_token"
-                })
-            });
-            let data = await response.json();
-            
-            localStorage.setItem("token", data.access_token);
-            localStorage.setItem("token_expiry", Date.now() + (data.expires_in * 1000));
-            return data.access_token;
+            console.log("Token expired, fetching new token...");
+
+            try {
+                let response = await fetch("https://api.example.com/oauth/token", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({
+                        client_id: "abc123",
+                        client_secret: "xyz456",
+                        refresh_token: "old_refresh_token",
+                        grant_type: "refresh_token"
+                    })
+                });
+
+                if (!response.ok) throw new Error("Gagal mendapatkan token");
+
+                let data = await response.json();
+
+                // Simpan token dalam LocalStorage
+                localStorage.setItem("token", data.access_token);
+                localStorage.setItem("token_expiry", Date.now() + (data.expires_in * 1000));
+
+                // Update token dalam UI
+                document.getElementById("tokenDisplay").innerText = data.access_token;
+
+                // Hantar token ke Android (kalau WebView support)
+                if (window.Android) {
+                    window.Android.sendToken(data.access_token);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById("tokenDisplay").innerText = "Gagal mendapatkan token!";
+            }
+        } else {
+            console.log("Menggunakan token lama:", token);
+            document.getElementById("tokenDisplay").innerText = token;
+
+            // Hantar token ke Android jika ada
+            if (window.Android) {
+                window.Android.sendToken(token);
+            }
         }
-        return token;
     }
 
     // Auto-refresh setiap 5 minit
