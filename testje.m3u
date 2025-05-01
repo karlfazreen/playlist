@@ -1,0 +1,12 @@
+#KODIPROP:inputstreamaddon=inputstream.adaptive
+#EXTHTTP:{"Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3NDYwNTE4NTQsImlzcyI6IlZSIiwiZXhwIjoxNzQ2MDgwNjU0LCJ3bXZlciI6Mywid21pZGZtdCI6ImFzY2lpIiwid21pZHR5cCI6MSwid21rZXl2ZXIiOjMsIndtdG1pZHZlciI6NCwid21pZGxlbiI6NTEyLCJ3bW9waWQiOjMyLCJ3bWlkIjoiMWRlODIwNjEtOTg4NC00MTNjLTg1NmUtMWFmYTk0NTg2YTlhIiwiZmlsdGVyIjoiKHR5cGU9PVwidmlkZW9cIiYmRGlzcGxheUhlaWdodDw9NzIwKXx8KHR5cGU9PVwiYXVkaW9cIiYmZm91ckNDIT1cImFjLTNcIil8fCh0eXBlIT1cInZpZGVvXCImJnR5cGUhPVwiYXVkaW9cIikiLCJwYXR0ZXJuIjoiOWMwYzg5YTVjNDI0MTU0ZjYxY2ViZGFmN2YwOWI3ODgtMzNjYjE1NTExOWIxN2ExMDBiOWYtMyJ9.F4j596U1L1-88GC9_vqf_GKPxrkVyNXCJDr-ZNyJXFM"}
+#KODIPROP:inputstream.adaptive.manifest_type=dash
+#KODIPROP:inputstream.adaptive.license_type=org.w3.clearkey
+#KODIPROP:inputstream.adaptive.license_key={"cdcbbd9ef8f95d04b6c74d7160e4934b":"af594494af4d9738c8d69fd10ea3b85c"}
+#EXTINF:-1 tvg-id="104.astro" tvg-url="https://bit.ly/C7_EPG" tvg-name="RIA HD" tvg-logo="https://i.ibb.co/5MgMLKB/Astro-Ria-2024.png" group-title="MALAYSIA",Astro Ria HDᴮ 
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 v3
+https://get.perfecttv.net/720.mpd?username=vip_3klp0es8&password=wg3piwEs&channel=harimaumerah
+
+
+
+
