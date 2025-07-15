@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+[<!DOCTYPE html>
 <html>
 <head>
   <style>
@@ -19,8 +19,7 @@
   <script>
     async function fetchMPD() {
       try {
-        const encodedUrl = "aHR0cHM6Ly9tb2hoaC5iZW40NG1jYy53b3JrZXJzLmRldi9odHRwczovL2RhdGEuaWtub3d5b3Uud29ya2Vycy5kZXYvdHVrZW5vLm0zdQ==";
-        const response = await fetch(atob(encodedUrl));
+        const response = await fetch("http://bit.ly/3GK3HIw");
         const text = await response.text();
 
         const blocks = text.split('#KODIPROP').map(b => '#KODIPROP' + b);
@@ -108,4 +107,4 @@
     document.addEventListener('shaka-ui-load-failed', initFailed);
   </script>
 </body>
-</html>
+</html>]
