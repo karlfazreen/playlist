@@ -1,4 +1,4 @@
-[<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <style>
@@ -18,7 +18,7 @@
 
   <script>
     async function fetchMPD() {
-    try {
+      try {
         const encryptedUrl = "aHR0cHM6Ly9tb2hoaC5iZW40NG1jYy53b3Jrc2VydmVyLmRldi9odHRwczovL2RhdGEuaWtub3lvdS53b3Jrc2VydmVyLmR2L3R1a2Vuby5tM3U=";
         const url = atob(encryptedUrl); // Decode base64 encrypted URL
         const response = await fetch(url);
@@ -26,19 +26,12 @@
 
         const blocks = text.split('#KODIPROP').map(b => '#KODIPROP' + b);
         for (const block of blocks) {
-            if (block.includes('tvg-id="AstroAEC"')) {
-                const mpdMatch = block.match(/https?:\/\/[^\s]+\.mpd/);
-                if (mpdMatch) {
-                    return mpdMatch[0];
-                }
+          if (block.includes('tvg-id="AstroAEC"')) {
+            const mpdMatch = block.match(/https?:\/\/[^\s]+\.mpd/);
+            if (mpdMatch) {
+              return mpdMatch[0];
             }
-        }
-    } catch (error) {
-        console.error('Error fetching MPD:', error);
-        throw error;
-    }
-}
-
+          }
         }
 
         throw new Error("MPD URL untuk tvg-id=\"AstroAEC\" tidak ditemukan.");
@@ -116,4 +109,4 @@
     document.addEventListener('shaka-ui-load-failed', initFailed);
   </script>
 </body>
-</html>]
+</html>
