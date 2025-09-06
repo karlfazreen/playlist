@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Merge EPG to XML.GZ</title>
+</head>
+<body>
+  <h1>Merge EPG to XML.GZ</h1>
+  <button id="mergeBtn">Merge & Download</button>
+  <p id="status"></p>
+
+  <script>
+  const EPG_URLS = [
+    "https://raw.githubusercontent.com/AqFad2811/epg/main/epg.xml",
+    "https://azimabid00.github.io/epg/astro_epg.xml",
+    "https://azimabid00.github.io/epg/unifi_epg.xml",
+    "https://epg.pw/xmltv/epg_ID.xml.gz",
+    "https://epg.pw/xmltv/epg_IN.xml.gz",
+    "https://raw.githubusercontent.com/syfqsamvpn/youtube-live/main/epg.xml",
+    "https://i.mjh.nz/SamsungTVPlus/us.xml.gz",
+    "https://i.mjh.nz/SamsungTVPlus/gb.xml.gz",
+    "https://tinyurl.com/merged2423-epg",
+    "https://raw.githubusercontent.com/ydbf/MoveOnJoy/refs/heads/main/epg.xml",
+    "https://epgshare01.online/epgshare01/epg_ripper_ALL_SOURCES1.xml.gz",
+    "https://raw.githubusercontent.com/dbghelp/StarHub-TV-EPG/refs/heads/main/starhub.xml",
+    "https://raw.githubusercontent.com/dbghelp/mewatch-EPG/refs/heads/main/mewatch.xml",
+    "https://iptvx.one/EPG",
+    "https://epg.pw/api/epg.xml?channel_id=247795",
+    "https://epg.pw/api/epg.xml?channel_id=62234",
+    "https://epg.pw/api/epg.xml?channel_id=427680",
+    "https://epg.pw/xmltv/epg_TH.xml",
+    "https://animenosekai.github.io/japanterebi-xmltv/guide.xml",
+    "https://raw.githubusercontent.com/samleong123/rtm-live/main/rtmklik.xml",
+    "https://www.open-epg.com/files/philippines1.xml.gz",
+    "https://i.mjh.nz/PlutoTV/all.xml.gz",
+    "https://epgshare01.online/epgshare01/epg_ripper_SG1.xml.gz",
+    "https://epgshare01.online/epgshare01/epg_ripper_UK1.xml.gz",
+  ];
+
+  document.getElementById('mergeBtn').addEventListener('click', async () => {
+    const statusEl = document.getElementById('status');
+    statusEl.textContent = "Fetching EPG sources...";
+
+    // Fetch semua EPG
+    const results = await Promise.allSettled(EPG_URLS.map(fetchEPG));
+
+    statusEl.textContent = "Merging EPG data...";
+
+    const channelMap = new Map();
+    const programmeMap = new Map();
+
+    for (const r of results) {
+      if (r.status !== 'fulfilled') continue;
+      const text = r.value;
+      if (!text) continue;
+
+      // <channel>
+      for (const m of text.matchAll(/<channel\b[^>]*>[\s\S]*?<\/channel>/gi)) {
+        const chunk = m[0];
+        const idMatch = chunk.match(/<channel[^>]*\bid=["']([^"']+)["']/i);
+        if (!idMatch) continue;
+        const id = idMatch[1].trim();
+        if (!channelMap.has(id)) channelMap.set(id, chunk);
+      }
+
+      // <programme>
+      for (const m of text.matchAll(/<programme\b[^>]*>[\s\S]*?<\/programme>/gi)) {
+        const chunk = m[0];
+        const channelAttr = (chunk.match(/channel=["']([^"']+)["']/i) || [])[1];
+        const startAttr = (chunk.match(/start=["']([^"']+)["']/i) || [])[1];
+        if (!channelAttr || !startAttr) continue;
+        const key = `${channelAttr}||${startAttr}`;
+        if (!programmeMap.has(key)) programmeMap.set(key, chunk);
+      }
+    }
+
+    // Build XML
+    const header = '<?xml version="1.0" encoding="UTF-8"?>\n';
+    let merged = header + '<tv generator-info-name="merged-by-html">\n';
+    for (const ch of channelMap.values()) merged += ch + '\n';
+    for (const p of programmeMap.values()) merged += p + '\n';
+    merged += '</tv>';
+
+    statusEl.textContent = "Compressing to .gz...";
+
+    // Compress ke gzip
+    try {
+      const cs = new CompressionStream('gzip');
+      const blob = await new Response(new TextEncoder().encode(merged).pipeThrough(cs)).blob();
+
+      // Buat download link
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'merged_epg.xml.gz';
+      a.textContent = 'Download merged_epg.xml.gz';
+      document.body.appendChild(a);
+
+      statusEl.textContent = "Done! Klik link untuk download.";
+    } catch (err) {
+      console.error(err);
+      statusEl.textContent = "Compression failed. Browser mungkin tak support CompressionStream.";
+    }
+  });
+
+  async function fetchEPG(url) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`${url} -> ${res.status}`);
+      const ce = res.headers.get('content-encoding') || '';
+      const ct = res.headers.get('content-type') || '';
+      const isGz = /gzip/i.test(ce) || /application\/gzip|application\/x-gzip/.test(ct) || /\.gz($|\?)/i.test(url);
+
+      if (isGz && typeof DecompressionStream !== 'undefined') {
+        const ab = await res.arrayBuffer();
+        const ds = new DecompressionStream('gzip');
+        const decompressedStream = new Response(ab).body.pipeThrough(ds);
+        return await new Response(decompressedStream).text();
+      }
+
+      return await res.text();
+    } catch (err) {
+      console.warn("Failed fetch:", url);
+      return null;
+    }
+  }
+  </script>
+</body>
+</html>
