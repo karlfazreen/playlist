@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Merge EPG to XML.GZ</title>
+  <script src="https://cdn.jsdelivr.net/npm/fflate@0.7.5/umd/index.js"></script>
 </head>
 <body>
   <h1>Merge EPG to XML.GZ</h1>
@@ -41,7 +42,6 @@
     const statusEl = document.getElementById('status');
     statusEl.textContent = "Fetching EPG sources...";
 
-    // Fetch semua EPG
     const results = await Promise.allSettled(EPG_URLS.map(fetchEPG));
 
     statusEl.textContent = "Merging EPG data...";
@@ -74,7 +74,6 @@
       }
     }
 
-    // Build XML
     const header = '<?xml version="1.0" encoding="UTF-8"?>\n';
     let merged = header + '<tv generator-info-name="merged-by-html">\n';
     for (const ch of channelMap.values()) merged += ch + '\n';
@@ -83,12 +82,11 @@
 
     statusEl.textContent = "Compressing to .gz...";
 
-    // Compress ke gzip
     try {
-      const cs = new CompressionStream('gzip');
-      const blob = await new Response(new TextEncoder().encode(merged).pipeThrough(cs)).blob();
+      const uint8 = fflate.strToU8(merged);
+      const gzipped = fflate.gzipSync(uint8);
+      const blob = new Blob([gzipped], { type: 'application/gzip' });
 
-      // Buat download link
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = 'merged_epg.xml.gz';
@@ -98,7 +96,7 @@
       statusEl.textContent = "Done! Klik link untuk download.";
     } catch (err) {
       console.error(err);
-      statusEl.textContent = "Compression failed. Browser mungkin tak support CompressionStream.";
+      statusEl.textContent = "Compression failed.";
     }
   });
 
@@ -110,11 +108,11 @@
       const ct = res.headers.get('content-type') || '';
       const isGz = /gzip/i.test(ce) || /application\/gzip|application\/x-gzip/.test(ct) || /\.gz($|\?)/i.test(url);
 
-      if (isGz && typeof DecompressionStream !== 'undefined') {
+      if (isGz) {
+        // Gunakan fflate untuk decompress
         const ab = await res.arrayBuffer();
-        const ds = new DecompressionStream('gzip');
-        const decompressedStream = new Response(ab).body.pipeThrough(ds);
-        return await new Response(decompressedStream).text();
+        const decompressed = fflate.gunzipSync(new Uint8Array(ab));
+        return new TextDecoder().decode(decompressed);
       }
 
       return await res.text();
