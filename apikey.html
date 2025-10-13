@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="ms">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OTT ID Generator — Landing Page</title>
+  <style>
+    :root {
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#94a3b8;
+      --accent:#06b6d4;
+    }
+    body {
+      font-family: Inter, Segoe UI, Arial, sans-serif;
+      background: linear-gradient(180deg,#041127 0%, #07122b 100%);
+      color:#e6eef6;
+      margin:0;
+      padding:16px;
+    }
+    .container {
+      max-width:960px;
+      margin:0 auto;
+      padding:16px;
+      background:rgba(255,255,255,0.02);
+      border-radius:12px;
+      box-shadow:0 6px 24px rgba(2,6,23,0.6);
+    }
+    h1 {margin:0 0 10px;font-size:22px;}
+    p.lead {color:var(--muted);margin:0 0 18px;font-size:15px;}
+    .grid {
+      display:grid;
+      grid-template-columns:1fr 360px;
+      gap:18px;
+    }
+    @media (max-width:768px){
+      .grid {grid-template-columns:1fr;}
+    }
+    .card {
+      background:var(--card);
+      padding:14px;
+      border-radius:10px;
+    }
+    .btn {
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:8px;
+      background:var(--accent);
+      color:#042026;
+      font-size:15px;
+      font-weight:600;
+      border:none;
+      cursor:pointer;
+      width:100%;
+      text-align:center;
+    }
+    .btn:disabled {background:#475569;color:#ccc;cursor:not-allowed;}
+    .small {font-size:13px;color:var(--muted);}
+    .muted {color:var(--muted);}
+    .hint {
+      background:rgba(255,255,255,0.02);
+      padding:10px;
+      border-radius:8px;
+      margin-top:12px;
+      font-size:13px;
+    }
+    footer {margin-top:14px;color:var(--muted);font-size:13px;text-align:center;}
+    .list-id {
+      font-size:14px;
+      margin-top:10px;
+      max-height:440px; /* ~5 item */
+      overflow-y:auto;
+      overflow-x:hidden;
+    }
+    .id-item {
+      margin-bottom:12px;
+      padding:10px;
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:8px;
+      background:rgba(255,255,255,0.02);
+    }
+    .id-link {
+      display:block;
+      word-break:break-all;
+      color:var(--accent);
+      margin-bottom:6px;
+      font-size:14px;
+    }
+    .note-input {
+      width:100%;
+      padding:6px;
+      border-radius:6px;
+      border:1px solid rgba(255,255,255,0.1);
+      background:transparent;
+      color:inherit;
+      margin-bottom:6px;
+    }
+    .copy-btn {
+      padding:8px 14px;
+      border:none;
+      border-radius:6px;
+      background:var(--accent);
+      color:#042026;
+      font-size:14px;
+      cursor:pointer;
+      width:100%;
+    }
+    .copy-btn:hover {background:#0891b2;}
+
+    /* Overlay apabila DevTools dikesan */
+    #devtoolsOverlay {
+      position:fixed;
+      inset:0;
+      background:linear-gradient(90deg, rgba(0,0,0,0.9), rgba(2,6,23,0.95));
+      color:#fff;
+      display:none;
+      z-index:99999;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      text-align:center;
+    }
+    #devtoolsOverlay .box {
+      max-width:720px;
+      padding:24px;
+      border-radius:12px;
+      background:rgba(0,0,0,0.6);
+      box-shadow:0 6px 24px rgba(0,0,0,0.6);
+      border:1px solid rgba(255,255,255,0.04);
+    }
+    #devtoolsOverlay h2 {margin:0 0 12px;font-size:20px;}
+    #devtoolsOverlay p {margin:0 0 12px;color:var(--muted);}
+    #devtoolsOverlay button {
+      padding:10px 14px;border-radius:8px;border:none;background:var(--accent);color:#042026;font-weight:600;cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="mainContent">
+    <h1>OTT ID Generator</h1>
+    <p class="lead">Halaman ini menjana ID link OTT. Tekan butang untuk mendapat ID anda. Jumlah ID terhad.</p>
+
+    <div class="grid">
+      <!-- LEFT: Generator -->
+      <div class="card">
+        <h3>Generator ID</h3>
+        <p class="small muted">Klik "Generat ID" untuk mendapat satu ID dari senarai.</p>
+
+        <div style="margin-top:12px;">
+          <button id="generateBtn" class="btn">Generat ID</button>
+        </div>
+
+        <!-- Result -->
+        <div id="result" class="hint" style="margin-top:12px;display:none"></div>
+        <div id="remainingInfo" class="hint" style="margin-top:12px;font-size:14px"></div>
+
+        <div class="hint" style="margin-top:12px;white-space:pre-wrap">
+📢 𝐁𝐀𝐂𝐀 & 𝐅𝐀𝐇𝐀𝐌𝐈  
+Muat turun OTT TV/Player/Navigator di Play Store.  
+
+🔗 ID:
+          
+⚙ 𝐒𝐞𝐭𝐮𝐩 𝐈𝐃: Live Stream → Configure Provider → Add Provider → Playlist → URL (paste ID) → Apply → Return.  
+
+⚙ 𝐒𝐞𝐭𝐮𝐩 𝐄𝐏𝐆: Setting → Teleguide EPG → User-Provider → URL: https://mokm32.github.io/epg-astro/epg.xml → Trust → Reload.  
+
+📌 𝐍𝐨𝐭𝐚:  
+- Reload id setiap buka.  
+- 1 ID = 1 peranti (lebih = banned).  
+- Jangan klik link (copy ke OTT).  
+-------------------  
+Jika produk tiada di Shopee, pesan di web: https://mokm32.github.io/necklenj-site/  
+-------------------
+        </div>
+      </div>
+
+      <!-- RIGHT: List Generated IDs -->
+      <div class="card">
+        <h3>Senarai ID Dibuat</h3>
+        <p class="small muted">Paparan ID yang telah dibuat. Susunan nombor ikut urutan masa.</p>
+        <div id="generatedList" class="list-id"></div>
+      </div>
+    </div>
+
+    <footer>Made for you — ubah kod (LINKS & tetapan) secara manual jika perlu.</footer>
+  </div>
+
+  <!-- Overlay untuk DevTools detection -->
+  <div id="devtoolsOverlay">
+    <div class="box">
+      <h2>Akses DevTools dikesan</h2>
+      <p>Untuk melindungi kandungan ini, akses DevTools/Inspect tidak dibenarkan semasa sesi ini. Sila tutup DevTools untuk meneruskan.</p>
+      <button id="closeOverlayBtn">Tutup Overlay</button>
+    </div>
+  </div>
+
+  <script>
+    /**************************************************************************
+     *  Kaedah "Disable Inspect" (kosmetik sahaja)
+     *  - Halang klik kanan dan shortcut biasa
+     *  - Kesan DevTools secara ringkas (dimension check) dan paparkan overlay
+     *
+     *  Nota: Ini bukan perlindungan penuh. Pengguna mahir boleh bypass.
+     **************************************************************************/
+
+    // 1) Halang klik kanan (context menu)
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+    });
+
+    // 2) Halang pintasan papan kekunci biasa untuk membuka DevTools / view source
+    document.addEventListener('keydown', function(e) {
+      // F12
+      if (e.key === 'F12' || e.keyCode === 123) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
+      if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+U (view source)
+      if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+Shift+K (Firefox)
+      if (e.ctrlKey && e.shiftKey && (e.key === 'K' || e.key === 'k')) {
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    // 3) Simple DevTools detection using outer vs inner dimensions
+    const overlay = document.getElementById('devtoolsOverlay');
+    const closeOverlayBtn = document.getElementById('closeOverlayBtn');
+    let devtoolsOpen = false;
+    function showDevtoolsOverlay() {
+      overlay.style.display = 'flex';
+      devtoolsOpen = true;
+      // optionally blur main content
+      const main = document.getElementById('mainContent');
+      if (main) main.style.filter = 'blur(4px) grayscale(0.3)';
+    }
+    function hideDevtoolsOverlay() {
+      overlay.style.display = 'none';
+      devtoolsOpen = false;
+      const main = document.getElementById('mainContent');
+      if (main) main.style.filter = '';
+    }
+    closeOverlayBtn.addEventListener('click', function(){
+      hideDevtoolsOverlay();
+    });
+
+    // Heuristic checks: jika perbezaan saiz tetingkap besar => kemungkinan devtools dibuka
+    function detectDevTools() {
+      const threshold = 160; // ambang; boleh adjust
+      const widthDiff = Math.abs(window.outerWidth - window.innerWidth);
+      const heightDiff = Math.abs(window.outerHeight - window.innerHeight);
+      if (widthDiff > threshold || heightDiff > threshold) {
+        if (!devtoolsOpen) showDevtoolsOverlay();
+      } else {
+        if (devtoolsOpen) hideDevtoolsOverlay();
+      }
+    }
+
+    // Tambah satu lagi teknik: cuba mengukur konsol (ringkas)
+    // Perhatikan: penggunaan console.log dengan object boleh dideteksi apabila devtools terbuka
+    (function consoleChecker(){
+      let open = false;
+      const start = Date.now();
+      debugger; // apabila devtools terbuka, ini akan menambah masa
+      const elapsed = Date.now() - start;
+      // jika elasped sangat besar, devtools mungkin dibuka; tapi debugger masuk ke laman bergantung pada browser
+      if (elapsed > 100) open = true;
+      if (open && !devtoolsOpen) showDevtoolsOverlay();
+    })();
+
+    // jalankan pemeriksaan secara berkala
+    setInterval(detectDevTools, 800);
+
+    // 4) Halang select all / view source via long-press selection (mobile)
+    document.addEventListener('selectstart', function(e){
+      e.preventDefault();
+    });
+
+    // 5) Extra: cuba sukar-kan console.open detection
+    (function(){
+      const element = new Image();
+      Object.defineProperty(element, 'id', {
+        get: function () {
+          // dipanggil apabila console cuba render object (sering berlaku bila devtools terbuka)
+          if (!devtoolsOpen) showDevtoolsOverlay();
+        }
+      });
+      // log element ke console; jika devtools terbuka, getter dicall
+      console.log('%c', element);
+    })();
+
+    // ------------------------------
+    // Kod utama OTT ID (asal) (tidak diubah dari asal)
+    // ------------------------------
+    const LINKS = [
+      "https://nky.short.gy/PitnVh",
+      "https://nky.short.gy/VR9MGE",
+      "https://nky.short.gy/PUqeJ",
+      "https://nky.short.gy/2211",
+      "https://nky.short.gy/1231",
+      "https://nky.short.gy/121",
+      "https://nky.short.gy/PUqeJ"
+    ];
+    let MAX_GENERATE_DEFAULT = 7;
+
+    const sessionKey = 'ott_gen_state_v3';
+    function getSession() {
+      try {
+        return JSON.parse(localStorage.getItem(sessionKey)) || {count:0,used:[],history:[],notes:{}}
+      } catch(e){return {count:0,used:[],history:[],notes:{}}}
+    }
+    function setSession(s){ localStorage.setItem(sessionKey, JSON.stringify(s)); }
+
+    const generateBtn = document.getElementById('generateBtn');
+    const result = document.getElementById('result');
+    const remainingInfo = document.getElementById('remainingInfo');
+    const generatedList = document.getElementById('generatedList');
+
+    let LINKS_EFFECTIVE = LINKS.slice();
+    let MAX_GENERATE = Number(MAX_GENERATE_DEFAULT) || LINKS_EFFECTIVE.length;
+
+    function showResult(text, isLink){
+      result.style.display='block';
+      if(isLink){
+        result.innerHTML = `<strong>Berjaya:</strong> <a href="${text}" target="_blank" style="color:var(--accent)">${text}</a>`;
+      } else result.innerText = text;
+    }
+
+    function updateRemaining(){
+      const s = getSession();
+      const remain = Math.max(0, MAX_GENERATE - s.count);
+      remainingInfo.innerHTML = `🔢 ID baki boleh digenerat: <strong>${remain}</strong>`;
+    }
+
+    function updateList(){
+      const s = getSession();
+      generatedList.innerHTML = '';
+      s.history.forEach((link, idx)=>{
+        const div = document.createElement('div');
+        div.className = "id-item";
+        const noteVal = s.notes[link] || "";
+        div.innerHTML = `
+          <div><strong>${idx+1}.</strong> <a href="${link}" target="_blank" class="id-link">${link}</a></div>
+          <input type="text" class="note-input" value="${noteVal}" placeholder="Masukkan nama pelanggan / catatan...">
+          <button class="copy-btn">Copy</button>
+        `;
+        const noteInput = div.querySelector('.note-input');
+        noteInput.addEventListener('input', ()=>{
+          const ss = getSession();
+          ss.notes[link] = noteInput.value;
+          setSession(ss);
+        });
+        const copyBtn = div.querySelector('.copy-btn');
+        copyBtn.onclick = () => {
+          navigator.clipboard.writeText(link).then(()=>{
+            copyBtn.textContent = "Copied!";
+            setTimeout(()=>copyBtn.textContent="Copy",1500);
+          });
+        };
+        generatedList.appendChild(div);
+      });
+    }
+
+    generateBtn.addEventListener('click', ()=>{
+      const s = getSession();
+      if(s.count >= MAX_GENERATE){
+        showResult('Had generat telah dicapai.', false);
+        generateBtn.disabled = true;
+        return;
+      }
+      let unused = [];
+      for(let i=0;i<LINKS_EFFECTIVE.length;i++)
+        if(!s.used.includes(i)) unused.push(i);
+      if(unused.length===0){
+        showResult('Tiada ID lagi dalam senarai.', false);
+        return;
+      }
+      const nextIdx = unused[0];
+      s.used.push(nextIdx);
+      s.count += 1;
+      const link = LINKS_EFFECTIVE[nextIdx];
+      s.history.push(link);
+      setSession(s);
+      showResult(link, true);
+      if(s.count>=MAX_GENERATE) generateBtn.disabled = true;
+      updateRemaining();
+      updateList();
+    });
+
+    (function(){
+      MAX_GENERATE = Number(MAX_GENERATE_DEFAULT) || LINKS_EFFECTIVE.length;
+      if(LINKS_EFFECTIVE.length < MAX_GENERATE) MAX_GENERATE = LINKS_EFFECTIVE.length;
+      updateRemaining();
+      updateList();
+    })();
+  </script>
+</body>
+</html>
